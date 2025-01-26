@@ -13,6 +13,7 @@ import AccidentTypeCard from "@/components/AccidentTypeCard";
 import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
 import AttorneyQuestion from "@/components/AttorneyQuestion";
 import FaultQuestion from "@/components/FaultQuestion";
+import AccidentTimingQuestion from "@/components/AccidentTimingQuestion";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 
@@ -80,6 +81,14 @@ const Index = () => {
         description: "Please tell us when the accident occurred.",
       });
     }
+  };
+
+  const handleTimingResponse = (timing: string) => {
+    setStep(6);
+    toast({
+      title: "Timing information recorded",
+      description: "Please proceed with the next step.",
+    });
   };
 
   const handleRestart = () => {
@@ -159,6 +168,13 @@ const Index = () => {
           <FaultQuestion 
             onSelect={handleFaultResponse}
             compensationRange={{ min: 18900, max: 44100 }}
+          />
+        )}
+
+        {step === 5 && (
+          <AccidentTimingQuestion
+            onSelect={handleTimingResponse}
+            compensationRange={{ min: 47749, max: 66848 }}
           />
         )}
 
