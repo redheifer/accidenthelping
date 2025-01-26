@@ -7,15 +7,18 @@ import {
   Stethoscope,
   PersonStanding,
   AlertCircle,
+  RotateCcw,
 } from "lucide-react";
 import AccidentTypeCard from "@/components/AccidentTypeCard";
 import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
 import AttorneyQuestion from "@/components/AttorneyQuestion";
 import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [step, setStep] = useState(1);
+  const [isComplete, setIsComplete] = useState(false);
   const { toast } = useToast();
 
   const accidentTypes = [
@@ -47,12 +50,54 @@ const Index = () => {
   };
 
   const handleAttorneyResponse = (hasAttorney: boolean) => {
-    toast({
-      title: "Attorney information recorded",
-      description: "Thank you for providing this information.",
-    });
-    // Handle the next step or form submission here
+    if (hasAttorney) {
+      setIsComplete(true);
+      toast({
+        title: "Form Complete",
+        description: "Since you already have an attorney, we cannot proceed with your case.",
+      });
+    } else {
+      toast({
+        title: "Attorney information recorded",
+        description: "Thank you for providing this information.",
+      });
+      // Handle the next step or form submission here for users without attorneys
+    }
   };
+
+  const handleRestart = () => {
+    setSelectedType(null);
+    setStep(1);
+    setIsComplete(false);
+    toast({
+      title: "Form Reset",
+      description: "You can start over with your claim evaluation.",
+    });
+  };
+
+  if (isComplete) {
+    return (
+      <div className="min-h-screen p-6 md:p-8 lg:p-12">
+        <div className="max-w-2xl mx-auto text-center space-y-6">
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+            Thank you for your interest
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            Since you already have legal representation, we cannot proceed with your case. 
+            Please consult with your current attorney for guidance.
+          </p>
+          <Button 
+            onClick={handleRestart}
+            className="mt-4"
+            variant="outline"
+          >
+            <RotateCcw className="mr-2 h-4 w-4" />
+            Start Over
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen p-6 md:p-8 lg:p-12">
