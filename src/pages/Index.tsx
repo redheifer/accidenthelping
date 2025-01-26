@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import AccidentTypeCard from "@/components/AccidentTypeCard";
 import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
+import AttorneyQuestion from "@/components/AttorneyQuestion";
 import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
@@ -38,12 +39,19 @@ const Index = () => {
   };
 
   const handleMedicalVisit = (hadMedicalVisit: boolean) => {
-    // Handle the medical visit response here
+    setStep(3);
     toast({
       title: "Medical visit information recorded",
+      description: "Please let us know about your legal representation.",
+    });
+  };
+
+  const handleAttorneyResponse = (hasAttorney: boolean) => {
+    toast({
+      title: "Attorney information recorded",
       description: "Thank you for providing this information.",
     });
-    // You can add more steps or handle the form submission here
+    // Handle the next step or form submission here
   };
 
   return (
@@ -77,6 +85,13 @@ const Index = () => {
 
         {step === 2 && (
           <MedicalVisitQuestion onSelect={handleMedicalVisit} />
+        )}
+
+        {step === 3 && (
+          <AttorneyQuestion 
+            onSelect={handleAttorneyResponse}
+            compensationRange={{ min: 12750, max: 29750 }}
+          />
         )}
 
         <div className="text-center text-sm text-muted-foreground max-w-3xl mx-auto">
