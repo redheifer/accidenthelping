@@ -67,11 +67,19 @@ const Index = () => {
   };
 
   const handleFaultResponse = (atFault: boolean) => {
-    toast({
-      title: "Fault information recorded",
-      description: "Thank you for providing this information.",
-    });
-    // Handle the next step or form submission here
+    if (atFault) {
+      setIsComplete(true);
+      toast({
+        title: "We're Sorry",
+        description: "Based on your response, we cannot proceed with your case at this time.",
+      });
+    } else {
+      setStep(5);
+      toast({
+        title: "Fault information recorded",
+        description: "Please tell us when the accident occurred.",
+      });
+    }
   };
 
   const handleRestart = () => {
@@ -92,8 +100,7 @@ const Index = () => {
             Thank you for your interest
           </h2>
           <p className="text-lg text-muted-foreground">
-            Since you already have legal representation, we cannot proceed with your case. 
-            Please consult with your current attorney for guidance.
+            Based on your responses, we cannot proceed with your case at this time.
           </p>
           <Button 
             onClick={handleRestart}

@@ -18,7 +18,7 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
             </div>
           </div>
           <div className="mt-2 relative h-2 bg-secondary rounded-full overflow-hidden">
-            <div className="absolute left-0 top-0 h-full bg-primary" style={{ width: "33%" }} />
+            <div className="absolute left-0 top-0 h-full bg-primary" style={{ width: "44%" }} />
           </div>
         </div>
 
