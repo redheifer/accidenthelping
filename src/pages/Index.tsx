@@ -14,6 +14,7 @@ import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
 import AttorneyQuestion from "@/components/AttorneyQuestion";
 import FaultQuestion from "@/components/FaultQuestion";
 import AccidentTimingQuestion from "@/components/AccidentTimingQuestion";
+import IncidentDescriptionForm from "@/components/IncidentDescriptionForm";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 
@@ -84,10 +85,33 @@ const Index = () => {
   };
 
   const handleTimingResponse = (timing: string) => {
-    setStep(6);
+    const recentTimings = [
+      "Within 1 Week",
+      "Within 1-3 months",
+      "Within 4-6 months",
+      "Within 1 Year"
+    ];
+
+    if (recentTimings.includes(timing)) {
+      setStep(6);
+      toast({
+        title: "Timing information recorded",
+        description: "Please describe your incident to help us evaluate your case.",
+      });
+    } else {
+      setIsComplete(true);
+      toast({
+        title: "We're Sorry",
+        description: "Based on the timing of your accident, we cannot proceed with your case at this time.",
+      });
+    }
+  };
+
+  const handleDescriptionSubmit = (description: string) => {
+    setStep(7);
     toast({
-      title: "Timing information recorded",
-      description: "Please proceed with the next step.",
+      title: "Description recorded",
+      description: "Thank you for providing details about your incident.",
     });
   };
 
@@ -175,6 +199,13 @@ const Index = () => {
           <AccidentTimingQuestion
             onSelect={handleTimingResponse}
             compensationRange={{ min: 47749, max: 66848 }}
+          />
+        )}
+
+        {step === 6 && (
+          <IncidentDescriptionForm
+            onSubmit={handleDescriptionSubmit}
+            compensationRange={{ min: 27503, max: 61478 }}
           />
         )}
 
