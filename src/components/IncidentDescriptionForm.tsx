@@ -43,13 +43,18 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
           className="min-h-[200px] bg-card/50"
           maxLength={2000}
         />
-        <div className="text-right text-sm text-muted-foreground">
-          {description.length}/2000
+        <div className="flex justify-between text-sm text-muted-foreground">
+          <div>
+            {description.length < 20 && "Please enter at least 20 characters"}
+          </div>
+          <div>
+            {description.length}/2000
+          </div>
         </div>
         <Button
           onClick={() => onSubmit(description)}
           className="w-full py-6 text-lg"
-          disabled={description.length < 10}
+          disabled={description.length < 20}
         >
           Next
         </Button>

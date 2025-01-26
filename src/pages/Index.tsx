@@ -15,6 +15,7 @@ import AttorneyQuestion from "@/components/AttorneyQuestion";
 import FaultQuestion from "@/components/FaultQuestion";
 import AccidentTimingQuestion from "@/components/AccidentTimingQuestion";
 import IncidentDescriptionForm from "@/components/IncidentDescriptionForm";
+import NameCollectionForm from "@/components/NameCollectionForm";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 
@@ -108,10 +109,20 @@ const Index = () => {
   };
 
   const handleDescriptionSubmit = (description: string) => {
-    setStep(7);
+    if (description.length >= 20) {
+      setStep(7);
+      toast({
+        title: "Description recorded",
+        description: "Please provide your name to continue.",
+      });
+    }
+  };
+
+  const handleNameSubmit = (firstName: string, lastName: string) => {
+    setStep(8);
     toast({
-      title: "Description recorded",
-      description: "Thank you for providing details about your incident.",
+      title: "Name recorded",
+      description: "Thank you for providing your information.",
     });
   };
 
@@ -205,6 +216,13 @@ const Index = () => {
         {step === 6 && (
           <IncidentDescriptionForm
             onSubmit={handleDescriptionSubmit}
+            compensationRange={{ min: 27503, max: 61478 }}
+          />
+        )}
+
+        {step === 7 && (
+          <NameCollectionForm
+            onSubmit={handleNameSubmit}
             compensationRange={{ min: 27503, max: 61478 }}
           />
         )}
