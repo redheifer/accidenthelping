@@ -29,8 +29,11 @@ const Index = () => {
 
   if (isComplete) {
     return (
-      <div className="min-h-screen p-6 md:p-8 lg:p-12">
-        <FormComplete onRestart={handleRestart} />
+      <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-950 to-slate-900">
+        <FormComplete 
+          onRestart={handleRestart} 
+          compensationRange={{ min: 27503, max: 61478 }}
+        />
       </div>
     );
   }
