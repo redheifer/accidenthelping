@@ -94,7 +94,16 @@ export const useAccidentForm = () => {
     setStep(8);
     toast({
       title: "Name recorded",
-      description: "Thank you for providing your information.",
+      description: "Please provide your email address to receive your compensation estimate.",
+    });
+  };
+
+  const handleEmailSubmit = (email: string) => {
+    setStep(9);
+    setIsComplete(true);
+    toast({
+      title: "Email recorded",
+      description: "Thank you! We'll send your compensation estimate shortly.",
     });
   };
 
@@ -119,6 +128,7 @@ export const useAccidentForm = () => {
     handleTimingResponse,
     handleDescriptionSubmit,
     handleNameSubmit,
+    handleEmailSubmit,
     handleRestart,
   };
 };
