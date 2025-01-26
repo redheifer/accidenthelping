@@ -12,6 +12,7 @@ import {
 import AccidentTypeCard from "@/components/AccidentTypeCard";
 import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
 import AttorneyQuestion from "@/components/AttorneyQuestion";
+import FaultQuestion from "@/components/FaultQuestion";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 
@@ -57,12 +58,20 @@ const Index = () => {
         description: "Since you already have an attorney, we cannot proceed with your case.",
       });
     } else {
+      setStep(4);
       toast({
         title: "Attorney information recorded",
-        description: "Thank you for providing this information.",
+        description: "Please answer the following question about fault.",
       });
-      // Handle the next step or form submission here for users without attorneys
     }
+  };
+
+  const handleFaultResponse = (atFault: boolean) => {
+    toast({
+      title: "Fault information recorded",
+      description: "Thank you for providing this information.",
+    });
+    // Handle the next step or form submission here
   };
 
   const handleRestart = () => {
@@ -136,6 +145,13 @@ const Index = () => {
           <AttorneyQuestion 
             onSelect={handleAttorneyResponse}
             compensationRange={{ min: 12750, max: 29750 }}
+          />
+        )}
+
+        {step === 4 && (
+          <FaultQuestion 
+            onSelect={handleFaultResponse}
+            compensationRange={{ min: 18900, max: 44100 }}
           />
         )}
 
