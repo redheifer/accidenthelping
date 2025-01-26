@@ -1,6 +1,4 @@
 import { useState } from "react";
-import AccidentTypeCard from "@/components/AccidentTypeCard";
-import { useToast } from "@/components/ui/use-toast";
 import {
   Car,
   Bike,
@@ -10,9 +8,13 @@ import {
   PersonStanding,
   AlertCircle,
 } from "lucide-react";
+import AccidentTypeCard from "@/components/AccidentTypeCard";
+import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [step, setStep] = useState(1);
   const { toast } = useToast();
 
   const accidentTypes = [
@@ -28,36 +30,54 @@ const Index = () => {
 
   const handleTypeSelect = (id: string) => {
     setSelectedType(id);
+    setStep(2);
     toast({
       title: "Accident type selected",
-      description: "Please proceed to the next step.",
+      description: "Please answer the following question about medical visits.",
     });
+  };
+
+  const handleMedicalVisit = (hadMedicalVisit: boolean) => {
+    // Handle the medical visit response here
+    toast({
+      title: "Medical visit information recorded",
+      description: "Thank you for providing this information.",
+    });
+    // You can add more steps or handle the form submission here
   };
 
   return (
     <div className="min-h-screen p-6 md:p-8 lg:p-12">
       <div className="max-w-7xl mx-auto space-y-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-            Calculate Your Compensation Value
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            The type of accident you were in can get you major compensation. 
-            Tap below to see what yours is worth.
-          </p>
-        </div>
+        {step === 1 && (
+          <>
+            <div className="text-center space-y-4">
+              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+                Calculate Your Compensation Value
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                The type of accident you were in can get you major compensation. 
+                Tap below to see what yours is worth.
+              </p>
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {accidentTypes.map((type) => (
-            <AccidentTypeCard
-              key={type.id}
-              icon={type.icon}
-              title={type.title}
-              onClick={() => handleTypeSelect(type.id)}
-              selected={selectedType === type.id}
-            />
-          ))}
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {accidentTypes.map((type) => (
+                <AccidentTypeCard
+                  key={type.id}
+                  icon={type.icon}
+                  title={type.title}
+                  onClick={() => handleTypeSelect(type.id)}
+                  selected={selectedType === type.id}
+                />
+              ))}
+            </div>
+          </>
+        )}
+
+        {step === 2 && (
+          <MedicalVisitQuestion onSelect={handleMedicalVisit} />
+        )}
 
         <div className="text-center text-sm text-muted-foreground max-w-3xl mx-auto">
           <p>
