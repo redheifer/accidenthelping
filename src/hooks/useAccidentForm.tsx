@@ -100,10 +100,18 @@ export const useAccidentForm = () => {
 
   const handleEmailSubmit = (email: string) => {
     setStep(9);
-    setIsComplete(true);
     toast({
       title: "Email recorded",
-      description: "Thank you! We'll send your compensation estimate shortly.",
+      description: "Please provide your phone number to complete your submission.",
+    });
+  };
+
+  const handlePhoneSubmit = (phoneNumber: string) => {
+    setStep(10);
+    setIsComplete(true);
+    toast({
+      title: "Submission Complete",
+      description: "Thank you! We'll be in touch shortly with your compensation estimate.",
     });
   };
 
@@ -129,6 +137,7 @@ export const useAccidentForm = () => {
     handleDescriptionSubmit,
     handleNameSubmit,
     handleEmailSubmit,
+    handlePhoneSubmit,
     handleRestart,
   };
 };

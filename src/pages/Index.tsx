@@ -7,6 +7,7 @@ import AccidentTimingQuestion from "@/components/AccidentTimingQuestion";
 import IncidentDescriptionForm from "@/components/IncidentDescriptionForm";
 import NameCollectionForm from "@/components/NameCollectionForm";
 import EmailCollectionForm from "@/components/EmailCollectionForm";
+import PhoneNumberForm from "@/components/PhoneNumberForm";
 import FormComplete from "@/components/FormComplete";
 
 const Index = () => {
@@ -22,6 +23,7 @@ const Index = () => {
     handleDescriptionSubmit,
     handleNameSubmit,
     handleEmailSubmit,
+    handlePhoneSubmit,
     handleRestart,
   } = useAccidentForm();
 
@@ -82,6 +84,13 @@ const Index = () => {
         {step === 8 && (
           <EmailCollectionForm
             onSubmit={handleEmailSubmit}
+            compensationRange={{ min: 27503, max: 61478 }}
+          />
+        )}
+
+        {step === 9 && (
+          <PhoneNumberForm
+            onSubmit={handlePhoneSubmit}
             compensationRange={{ min: 27503, max: 61478 }}
           />
         )}
