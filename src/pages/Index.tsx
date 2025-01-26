@@ -141,7 +141,7 @@ const Index = () => {
 
         <div className="text-center text-sm text-muted-foreground max-w-3xl mx-auto">
           <p>
-            Accident Compensation Calculator powered by Case Connect. This site is not a part of the YouTube, 
+            Compensation for Accident Calculator powered by LegalUplift. This site is not a part of the YouTube, 
             Google or Facebook website; Google Inc or Facebook Inc. Additionally, This site is NOT endorsed 
             by YouTube, Google or Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc. YOUTUBE 
             is a trademark of GOOGLE Inc.
