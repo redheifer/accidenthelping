@@ -36,7 +36,7 @@ const Index = () => {
   if (isComplete) {
     if (hasAttorney) {
       return (
-        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
+        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
           <AttorneyFormComplete onRestart={handleRestart} />
           <Footer />
         </div>
@@ -44,14 +44,14 @@ const Index = () => {
     }
     if (isAtFault) {
       return (
-        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
+        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
           <FaultFormComplete onRestart={handleRestart} />
           <Footer />
         </div>
       );
     }
     return (
-      <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
+      <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
         <FormComplete 
           onRestart={handleRestart} 
           compensationRange={compensationRange}
@@ -62,7 +62,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
       <div className="max-w-7xl mx-auto space-y-8">
         {step === 1 && (
           <AccidentTypeSelection onSelect={handleTypeSelect} selectedType={selectedType} />
@@ -135,10 +135,10 @@ const Footer = () => (
       className="w-12 h-12 mx-auto"
     />
     <div className="space-y-2">
-      <h3 className="text-lg font-semibold text-gray-800">
+      <h3 className="text-lg font-semibold text-white">
         LegalUplift Compensation for Accident Calculator
       </h3>
-      <p className="text-sm text-gray-500 max-w-3xl mx-auto">
+      <p className="text-sm text-gray-400 max-w-3xl mx-auto">
         This site is not a part of the YouTube, Google or Facebook website; Google Inc or Facebook Inc. 
         Additionally, This site is NOT endorsed by YouTube, Google or Facebook in any way. 
         FACEBOOK is a trademark of FACEBOOK, Inc. YOUTUBE is a trademark of GOOGLE Inc.
