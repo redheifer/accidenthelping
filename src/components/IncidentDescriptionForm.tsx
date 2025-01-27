@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
 import ProgressIndicator from "./shared/ProgressIndicator";
 import CompensationDisplay from "./shared/CompensationDisplay";
 import QuestionHeader from "./shared/QuestionHeader";
@@ -12,8 +13,10 @@ interface IncidentDescriptionFormProps {
 
 const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescriptionFormProps) => {
   const [description, setDescription] = useState("");
+  const [zipCode, setZipCode] = useState("");
   const [currentRange, setCurrentRange] = useState(compensationRange);
   const [isLoading, setIsLoading] = useState(true);
+  const [zipError, setZipError] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,7 +40,28 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
     }
   };
 
+  const validateZipCode = (zip: string) => {
+    const zipRegex = /^\d{5}(-\d{4})?$/;
+    return zipRegex.test(zip);
+  };
+
+  const handleZipCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newZip = e.target.value;
+    setZipCode(newZip);
+    
+    if (newZip && !validateZipCode(newZip)) {
+      setZipError("Please enter a valid US ZIP code (e.g., 12345 or 12345-6789)");
+    } else {
+      setZipError("");
+    }
+  };
+
   const handleNext = () => {
+    if (!validateZipCode(zipCode)) {
+      setZipError("Please enter a valid US ZIP code before continuing");
+      return;
+    }
+
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -76,10 +100,24 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
             {description.length}/2000
           </div>
         </div>
+
+        <div className="space-y-2">
+          <Input
+            type="text"
+            value={zipCode}
+            onChange={handleZipCodeChange}
+            placeholder="Enter incident ZIP code"
+            className="bg-white/10 text-white placeholder:text-white/60"
+          />
+          {zipError && (
+            <p className="text-red-500 text-sm">{zipError}</p>
+          )}
+        </div>
+
         <Button
           onClick={handleNext}
           className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
-          disabled={description.length < 20}
+          disabled={description.length < 20 || !validateZipCode(zipCode)}
         >
           Next
         </Button>
