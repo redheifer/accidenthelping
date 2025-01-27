@@ -31,7 +31,7 @@ const Index = () => {
     handleRestart,
   } = useAccidentForm();
 
-  const compensationRange = { min: 27503, max: 61478 };
+  const compensationRange = { min: 75000, max: 125000 };
 
   if (isComplete) {
     if (hasAttorney) {

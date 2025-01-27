@@ -22,7 +22,7 @@ const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQ
     <div className="space-y-6">
       <div className="mb-8">
         <ProgressIndicator value={44} />
-        <CompensationDisplay min={compensationRange.min} max={compensationRange.max} />
+        <CompensationDisplay min={75000} max={125000} />
         <QuestionHeader 
           title="When did this accident happen?"
           description="The more recent your accident, the more likely you can achieve a higher settlement. If you've been in an accident, don't delay in getting help."
@@ -34,8 +34,7 @@ const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQ
           <Button
             key={timing}
             onClick={() => onSelect(timing)}
-            variant="secondary"
-            className="w-full py-6 text-lg hover:bg-primary hover:text-black transition-colors"
+            className="w-full py-6 text-lg bg-[#1a1c2e] hover:bg-primary hover:text-black text-white transition-colors"
           >
             {timing}
           </Button>
