@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -14,6 +14,15 @@ interface PhoneNumberFormProps {
 const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const formatPhoneNumber = (value: string) => {
     const numbers = value.replace(/\D/g, "");
@@ -46,7 +55,7 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
     <div className="space-y-6">
       <div className="mb-8">
         <ProgressIndicator value={88} />
-        <CompensationDisplay min={compensationRange.min} max={compensationRange.max} />
+        <CompensationDisplay min={75000} max={180000} isLoading={isLoading} />
         <QuestionHeader 
           title="What is your phone number?"
           description="We'll use this to contact you about your compensation estimate."
