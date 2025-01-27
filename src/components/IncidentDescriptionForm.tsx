@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import ProgressIndicator from "./shared/ProgressIndicator";
@@ -13,12 +13,7 @@ interface IncidentDescriptionFormProps {
 const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescriptionFormProps) => {
   const [description, setDescription] = useState("");
   const [currentRange, setCurrentRange] = useState(compensationRange);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newDescription = e.target.value;
@@ -33,6 +28,15 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
     } else {
       setCurrentRange(compensationRange);
     }
+  };
+
+  const handleNext = () => {
+    setIsLoading(true);
+    // Simulate loading for 2 seconds before submitting
+    setTimeout(() => {
+      setIsLoading(false);
+      onSubmit(description);
+    }, 2000);
   };
 
   return (
@@ -67,7 +71,7 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
           </div>
         </div>
         <Button
-          onClick={() => onSubmit(description)}
+          onClick={handleNext}
           className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
           disabled={description.length < 20}
         >
