@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { Progress } from "./ui/progress";
 
 interface EmailCollectionFormProps {
   onSubmit: (email: string) => void;

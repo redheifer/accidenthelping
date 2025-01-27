@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import CompensationBox from "./CompensationBox";
+import { Progress } from "./ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import CompensationBox from "./CompensationBox";
 
 interface PhoneNumberFormProps {
   onSubmit: (phoneNumber: string) => void;
@@ -89,3 +90,4 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
 };
 
 export default PhoneNumberForm;
+
