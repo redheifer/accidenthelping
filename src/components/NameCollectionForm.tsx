@@ -14,15 +14,23 @@ const NameCollectionForm = ({ onSubmit, compensationRange }: NameCollectionFormP
   return (
     <div className="space-y-6">
       <div className="mb-8">
+        <div className="max-w-xl mx-auto w-full space-y-2">
+          <div className="flex justify-between text-sm text-muted-foreground">
+            <span>Progress</span>
+            <span>66%</span>
+          </div>
+          <Progress 
+            value={66} 
+            className="h-3 rounded-full bg-secondary" 
+          />
+        </div>
+
         <div className="bg-card/50 rounded-lg p-4 mb-6 max-w-xs mx-auto">
           <div className="text-center">
             <div className="text-sm text-muted-foreground mb-1">Compensation amounts:</div>
             <div className="text-2xl font-bold text-primary">
               ${compensationRange.min.toLocaleString()} - ${compensationRange.max.toLocaleString()}
             </div>
-          </div>
-          <div className="mt-2 relative h-2 bg-secondary rounded-full overflow-hidden">
-            <div className="absolute left-0 top-0 h-full bg-primary" style={{ width: "67%" }} />
           </div>
         </div>
 

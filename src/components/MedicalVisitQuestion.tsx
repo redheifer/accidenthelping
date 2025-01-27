@@ -11,15 +11,14 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
     <div className="space-y-8">
       {/* Progress Bar */}
       <div className="max-w-xl mx-auto w-full space-y-2">
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-muted-foreground">
           <span>Progress</span>
-          <span>66%</span>
+          <span>11%</span>
         </div>
         <Progress 
-          value={66} 
-          className="h-3 rounded-full bg-gray-200" 
+          value={11} 
+          className="h-3 rounded-full bg-secondary" 
         />
-        <p className="text-sm text-gray-600 text-center">Step 2 of 3</p>
       </div>
 
       <div className="max-w-4xl mx-auto text-center space-y-6">

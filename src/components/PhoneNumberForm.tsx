@@ -42,6 +42,17 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
 
   return (
     <div className="space-y-6">
+      <div className="max-w-xl mx-auto w-full space-y-2">
+        <div className="flex justify-between text-sm text-muted-foreground">
+          <span>Progress</span>
+          <span>88%</span>
+        </div>
+        <Progress 
+          value={88} 
+          className="h-3 rounded-full bg-secondary" 
+        />
+      </div>
+
       <CompensationBox
         min={compensationRange.min}
         max={compensationRange.max}
