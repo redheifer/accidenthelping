@@ -32,11 +32,11 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
 
   const handleNext = () => {
     setIsLoading(true);
-    // Simulate loading for 2 seconds before submitting
+    // Simulate loading for 1.5 seconds before submitting
     setTimeout(() => {
       setIsLoading(false);
       onSubmit(description);
-    }, 2000);
+    }, 1500);
   };
 
   return (

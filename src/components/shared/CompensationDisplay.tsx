@@ -16,9 +16,9 @@ const CompensationDisplay = ({ min, max, isLoading = false }: CompensationDispla
       setShowAmount(false);
       setProgress(0);
       
-      // Animate progress from 0 to 100 over 2 seconds
+      // Animate progress from 0 to 100 over 1.5 seconds
       const startTime = Date.now();
-      const duration = 2000; // 2 seconds
+      const duration = 1500; // 1.5 seconds
 
       const updateProgress = () => {
         const elapsed = Date.now() - startTime;
