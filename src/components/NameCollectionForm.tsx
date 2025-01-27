@@ -29,17 +29,17 @@ const NameCollectionForm = ({ onSubmit, compensationRange }: NameCollectionFormP
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           placeholder="Your first name"
-          className="bg-white/50"
+          className="bg-white text-gray-900 placeholder:text-gray-500"
         />
         <Input
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           placeholder="Your last name"
-          className="bg-white/50"
+          className="bg-white text-gray-900 placeholder:text-gray-500"
         />
         <Button
           onClick={() => onSubmit(firstName, lastName)}
-          className="w-full py-6 text-lg"
+          className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
           disabled={!firstName.trim() || !lastName.trim()}
         >
           Next
