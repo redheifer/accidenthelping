@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import ProgressIndicator from "./shared/ProgressIndicator";
@@ -12,12 +12,21 @@ interface EmailCollectionFormProps {
 
 const EmailCollectionForm = ({ onSubmit, compensationRange }: EmailCollectionFormProps) => {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="space-y-6">
       <div className="mb-8">
         <ProgressIndicator value={77} />
-        <CompensationDisplay min={compensationRange.min} max={compensationRange.max} />
+        <CompensationDisplay min={75000} max={180000} isLoading={isLoading} />
         <QuestionHeader 
           title="What is the best email to send your compensation estimate to?"
           description="Our system will review your case, and email you the results directly to your inbox same-day."
