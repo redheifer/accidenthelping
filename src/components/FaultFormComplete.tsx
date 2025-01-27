@@ -8,7 +8,7 @@ const FaultFormComplete = ({ onRestart }: FaultFormCompleteProps) => {
   return (
     <div className="space-y-8">
       <div className="space-y-4 bg-card/50 p-8 rounded-lg text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+        <h2 className="text-3xl md:text-4xl font-bold text-white">
           We Cannot Proceed with Your Case
         </h2>
       </div>

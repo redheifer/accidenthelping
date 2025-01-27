@@ -29,10 +29,10 @@ const AccidentTypeSelection = ({ onSelect, selectedType }: AccidentTypeSelection
   return (
     <>
       <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
+        <h1 className="text-4xl md:text-5xl font-bold text-white">
           Calculate Your Compensation Value
         </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg text-white/80 max-w-2xl mx-auto">
           The type of accident you were in can get you major compensation. 
           Tap below to see what yours is worth.
         </p>
