@@ -14,14 +14,14 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <div className="max-w-xl mx-auto w-full space-y-2">
+        <div className="max-w-xl mx-auto w-full space-y-2 mb-8">
           <div className="relative h-6">
             <Progress 
               value={55} 
               className="h-6 bg-gray-100" 
-              indicatorClassName="bg-sky-400 transition-all"
+              indicatorClassName="bg-[#9b87f5] transition-all"
             />
-            <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
+            <span className="absolute inset-0 text-black text-sm flex items-center justify-center font-medium">
               55% Complete
             </span>
           </div>
@@ -33,9 +33,6 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
             <div className="text-2xl font-bold text-primary">
               ${compensationRange.min.toLocaleString()} - ${compensationRange.max.toLocaleString()}
             </div>
-          </div>
-          <div className="mt-2 relative h-2 bg-secondary rounded-full overflow-hidden">
-            <div className="absolute left-0 top-0 h-full bg-primary" style={{ width: "56%" }} />
           </div>
         </div>
 

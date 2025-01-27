@@ -11,14 +11,14 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <div className="max-w-xl mx-auto w-full space-y-2">
+        <div className="max-w-xl mx-auto w-full space-y-2 mb-8">
           <div className="relative h-6">
             <Progress 
               value={22} 
               className="h-6 bg-gray-100" 
-              indicatorClassName="bg-sky-400 transition-all"
+              indicatorClassName="bg-[#9b87f5] transition-all"
             />
-            <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
+            <span className="absolute inset-0 text-black text-sm flex items-center justify-center font-medium">
               22% Complete
             </span>
           </div>
