@@ -36,6 +36,7 @@ const Index = () => {
           onRestart={handleRestart} 
           compensationRange={compensationRange}
         />
+        <Footer />
       </div>
     );
   }
@@ -100,17 +101,30 @@ const Index = () => {
           />
         )}
 
-        <div className="text-center text-sm text-gray-500 max-w-3xl mx-auto">
-          <p>
-            Compensation for Accident Calculator powered by LegalUplift. This site is not a part of the YouTube, 
-            Google or Facebook website; Google Inc or Facebook Inc. Additionally, This site is NOT endorsed 
-            by YouTube, Google or Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc. YOUTUBE 
-            is a trademark of GOOGLE Inc.
-          </p>
-        </div>
+        <Footer />
       </div>
     </div>
   );
 };
+
+const Footer = () => (
+  <div className="mt-16 pb-8 text-center space-y-4">
+    <img 
+      src="/logo.png" 
+      alt="LegalUplift Logo" 
+      className="w-12 h-12 mx-auto logo-bounce"
+    />
+    <div className="space-y-2">
+      <h3 className="text-lg font-semibold text-gray-800">
+        LegalUplift Compensation for Accident Calculator
+      </h3>
+      <p className="text-sm text-gray-500 max-w-3xl mx-auto">
+        This site is not a part of the YouTube, Google or Facebook website; Google Inc or Facebook Inc. 
+        Additionally, This site is NOT endorsed by YouTube, Google or Facebook in any way. 
+        FACEBOOK is a trademark of FACEBOOK, Inc. YOUTUBE is a trademark of GOOGLE Inc.
+      </p>
+    </div>
+  </div>
+);
 
 export default Index;
