@@ -12,7 +12,7 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
       <div className="mb-8">
         <div className="bg-card/50 rounded-lg p-4 mb-6 max-w-xs mx-auto">
           <div className="text-center">
-            <div className="text-sm text-muted-foreground mb-1">Compensation amounts:</div>
+            <div className="text-sm text-gray-600 mb-1">Compensation amounts:</div>
             <div className="text-2xl font-bold text-primary">
               ${compensationRange.min.toLocaleString()} - ${compensationRange.max.toLocaleString()}
             </div>
@@ -23,10 +23,10 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
         </div>
 
         <div className="space-y-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
             Were you at fault?
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             You can be honest here. Determining fault is the best way to calculate settlement amounts. We need to know your perspective of the incident.
           </p>
         </div>

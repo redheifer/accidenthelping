@@ -29,15 +29,15 @@ const FormComplete = ({ onRestart, compensationRange }: FormCompleteProps) => {
 
       {/* Pending notification */}
       <div className="bg-card/50 p-8 rounded-lg space-y-4">
-        <h3 className="text-2xl font-bold text-white">Your Compensation is Pending:</h3>
-        <p className="text-lg text-white/80">
+        <h3 className="text-2xl font-bold text-gray-800">Your Compensation is Pending:</h3>
+        <p className="text-lg text-gray-600">
           We will be calling you shortly. Please leave your phone on loud and answer immediately.
         </p>
       </div>
 
       {/* Sharing section */}
       <div className="space-y-6">
-        <p className="text-white/80">
+        <p className="text-gray-600">
           Earn referral credits by sharing this AI app with your friends and family. Click below to share now!
         </p>
         <div className="flex justify-center gap-4">
