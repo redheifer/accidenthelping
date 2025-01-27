@@ -18,10 +18,10 @@ const AccidentTypeCard = ({ icon, title, onClick, selected }: AccidentTypeCardPr
         selected && "border-primary border-2"
       )}
     >
-      <div className="text-white text-4xl group-hover:scale-110 transition-all duration-300 animate-fade-in">
+      <div className="text-gray-700 text-4xl group-hover:scale-110 transition-all duration-300 logo-bounce">
         {icon}
       </div>
-      <h3 className="text-lg font-medium text-center">{title}</h3>
+      <h3 className="text-lg font-medium text-gray-700 text-center">{title}</h3>
     </button>
   );
 };
