@@ -1,6 +1,8 @@
 import { Frown, Smile } from "lucide-react";
+import { useState } from "react";
 import AccidentTypeCard from "./AccidentTypeCard";
 import { Progress } from "./ui/progress";
+import CompensationDisplay from "./shared/CompensationDisplay";
 
 interface FaultQuestionProps {
   onSelect: (atFault: boolean) => void;
@@ -8,6 +10,27 @@ interface FaultQuestionProps {
 }
 
 const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<boolean | null>(null);
+
+  const handleSelect = async (atFault: boolean) => {
+    setSelectedOption(atFault);
+    setIsLoading(true);
+    
+    // Simulate loading delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsLoading(false);
+    
+    onSelect(atFault);
+  };
+
+  const getCompensationRange = () => {
+    if (selectedOption === false) {
+      return { min: 61478, max: 98000 };
+    }
+    return compensationRange;
+  };
+
   return (
     <div className="space-y-6">
       <div className="mb-8">
@@ -24,14 +47,11 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
           </div>
         </div>
 
-        <div className="bg-[#1a1c2e] rounded-lg p-6 mb-8 max-w-xs mx-auto">
-          <div className="text-center">
-            <div className="text-sm text-white/80 mb-2">Compensation amounts:</div>
-            <div className="text-2xl font-bold text-white bg-green-600 rounded-md py-2">
-              ${compensationRange.min.toLocaleString()} - ${compensationRange.max.toLocaleString()}
-            </div>
-          </div>
-        </div>
+        <CompensationDisplay 
+          min={getCompensationRange().min}
+          max={getCompensationRange().max}
+          isLoading={isLoading}
+        />
 
         <div className="space-y-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white">
@@ -47,12 +67,12 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
         <AccidentTypeCard
           icon={<Frown className="w-12 h-12" />}
           title="Yes"
-          onClick={() => onSelect(true)}
+          onClick={() => handleSelect(true)}
         />
         <AccidentTypeCard
           icon={<Smile className="w-12 h-12" />}
           title="No"
-          onClick={() => onSelect(false)}
+          onClick={() => handleSelect(false)}
         />
       </div>
     </div>

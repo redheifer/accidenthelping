@@ -38,12 +38,14 @@ const CompensationDisplay = ({ min, max, isLoading = false }: CompensationDispla
       setProgress(100);
       setShowAmount(true);
     }
-  }, [isLoading]);
+  }, [isLoading, min, max]);
 
   return (
-    <div className="bg-gray-800/50 rounded-lg p-6 mb-8 max-w-xs mx-auto">
+    <div className="bg-[#1a1c2e] rounded-lg p-6 mb-8 max-w-xs mx-auto">
       <div className="text-center">
-        <div className="text-sm text-gray-300 mb-2">Compensation amounts:</div>
+        <div className="text-sm text-white/80 mb-2">
+          {isLoading ? "Calculating compensation..." : "Compensation amounts:"}
+        </div>
         {!showAmount ? (
           <div className="h-10 flex items-center justify-center">
             <Progress 

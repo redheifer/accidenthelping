@@ -1,19 +1,33 @@
 import { Stethoscope, XCircle } from "lucide-react";
+import { useState } from "react";
 import AccidentTypeCard from "./AccidentTypeCard";
 import { Progress } from "./ui/progress";
+import CompensationDisplay from "./shared/CompensationDisplay";
 
 interface MedicalVisitQuestionProps {
   onSelect: (hadMedicalVisit: boolean) => void;
 }
 
 const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
-  const handleSelect = (hadMedicalVisit: boolean) => {
-    // Set initial compensation range based on medical visit
-    const baseRange = hadMedicalVisit ? 
-      { min: 27503, max: 61478 } : 
-      { min: 15000, max: 35000 };
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<boolean | null>(null);
+
+  const handleSelect = async (hadMedicalVisit: boolean) => {
+    setSelectedOption(hadMedicalVisit);
+    setIsLoading(true);
+    
+    // Simulate loading delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsLoading(false);
     
     onSelect(hadMedicalVisit);
+  };
+
+  const getCompensationRange = () => {
+    if (selectedOption === null) {
+      return { min: 0, max: 5000 };
+    }
+    return { min: 27503, max: 61478 };
   };
 
   return (
@@ -32,14 +46,11 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
           </div>
         </div>
 
-        <div className="bg-[#1a1c2e] rounded-lg p-6 mb-8 max-w-xs mx-auto">
-          <div className="text-center">
-            <div className="text-sm text-white/80 mb-2">Initial compensation range:</div>
-            <div className="text-2xl font-bold text-white bg-green-600 rounded-md py-2">
-              $15,000 - $35,000
-            </div>
-          </div>
-        </div>
+        <CompensationDisplay 
+          min={getCompensationRange().min}
+          max={getCompensationRange().max}
+          isLoading={isLoading}
+        />
 
         <div className="space-y-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white">
