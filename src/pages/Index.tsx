@@ -9,12 +9,14 @@ import NameCollectionForm from "@/components/NameCollectionForm";
 import EmailCollectionForm from "@/components/EmailCollectionForm";
 import PhoneNumberForm from "@/components/PhoneNumberForm";
 import FormComplete from "@/components/FormComplete";
+import AttorneyFormComplete from "@/components/AttorneyFormComplete";
 
 const Index = () => {
   const {
     selectedType,
     step,
     isComplete,
+    hasAttorney,
     handleTypeSelect,
     handleMedicalVisit,
     handleAttorneyResponse,
@@ -30,6 +32,14 @@ const Index = () => {
   const compensationRange = { min: 27503, max: 61478 };
 
   if (isComplete) {
+    if (hasAttorney) {
+      return (
+        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
+          <AttorneyFormComplete onRestart={handleRestart} />
+          <Footer />
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
         <FormComplete 

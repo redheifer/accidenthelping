@@ -6,6 +6,7 @@ export const useAccidentForm = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [step, setStep] = useState<FormStep>(1);
   const [isComplete, setIsComplete] = useState(false);
+  const [hasAttorney, setHasAttorney] = useState(false);
   const { toast } = useToast();
 
   const handleTypeSelect = (id: string) => {
@@ -26,8 +27,9 @@ export const useAccidentForm = () => {
   };
 
   const handleAttorneyResponse = (hasAttorney: boolean) => {
+    setHasAttorney(hasAttorney);
+    setIsComplete(hasAttorney);
     if (hasAttorney) {
-      setIsComplete(true);
       toast({
         title: "Form Complete",
         description: "Since you already have an attorney, we cannot proceed with your case.",
@@ -119,6 +121,7 @@ export const useAccidentForm = () => {
     setSelectedType(null);
     setStep(1);
     setIsComplete(false);
+    setHasAttorney(false);
     toast({
       title: "Form Reset",
       description: "You can start over with your claim evaluation.",
@@ -129,6 +132,7 @@ export const useAccidentForm = () => {
     selectedType,
     step,
     isComplete,
+    hasAttorney,
     handleTypeSelect,
     handleMedicalVisit,
     handleAttorneyResponse,
