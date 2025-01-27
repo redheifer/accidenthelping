@@ -30,11 +30,11 @@ const EmailCollectionForm = ({ onSubmit, compensationRange }: EmailCollectionFor
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Your email address"
           type="email"
-          className="bg-white/50"
+          className="bg-white text-gray-900 placeholder:text-gray-500"
         />
         <Button
           onClick={() => onSubmit(email)}
-          className="w-full py-6 text-lg"
+          className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
           disabled={!email.trim() || !email.includes("@")}
         >
           Next
