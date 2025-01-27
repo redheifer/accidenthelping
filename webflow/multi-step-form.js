@@ -14,11 +14,41 @@ document.addEventListener('DOMContentLoaded', function() {
     phone: ''
   };
 
+  // Add click handlers for accident type cards
+  document.querySelectorAll('.accident-type-card').forEach(card => {
+    card.addEventListener('click', function() {
+      // Remove selected class from all cards
+      document.querySelectorAll('.accident-type-card').forEach(c => {
+        c.classList.remove('selected');
+      });
+      
+      // Add selected class to clicked card
+      this.classList.add('selected');
+      
+      // Store the selected type
+      formData.accidentType = this.dataset.type;
+      
+      // Proceed to next step after a short delay
+      setTimeout(() => {
+        currentStep++;
+        showStep(currentStep);
+      }, 300);
+    });
+  });
+
   function showStep(stepNumber) {
+    // Hide all steps
     document.querySelectorAll('.form-step').forEach(step => {
       step.classList.add('hidden');
     });
-    document.getElementById(`step${stepNumber}`).classList.remove('hidden');
+    
+    // Show current step
+    const currentStepElement = document.getElementById(`step${stepNumber}`);
+    if (currentStepElement) {
+      currentStepElement.classList.remove('hidden');
+    }
+    
+    // Update progress bar
     updateProgress(stepNumber);
   }
 
@@ -35,59 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
       9: 99
     };
     
-    const progressBar = document.querySelector(`#step${step} .progress-indicator`);
+    const progressBar = document.querySelector('.progress-indicator');
     if (progressBar) {
       progressBar.style.width = `${progressValues[step]}%`;
     }
-  }
-
-  function validateZipCode(zip) {
-    const zipRegex = /^\d{5}(-\d{4})?$/;
-    return zipRegex.test(zip);
-  }
-
-  function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
-  function validatePhone(phone) {
-    const phoneRegex = /^\d{10}$/;
-    return phoneRegex.test(phone.replace(/\D/g, ''));
-  }
-
-  // Event Listeners for Step 1: Accident Type Selection
-  document.querySelectorAll('.accident-type-card').forEach(card => {
-    card.addEventListener('click', function() {
-      formData.accidentType = this.dataset.type;
-      document.querySelectorAll('.accident-type-card').forEach(c => c.classList.remove('selected'));
-      this.classList.add('selected');
-      setTimeout(() => {
-        currentStep++;
-        showStep(currentStep);
-      }, 300);
-    });
-  });
-
-  // Event Listeners for Step 2: Medical Visit
-  document.querySelectorAll('#step2 .option-card').forEach(card => {
-    card.addEventListener('click', function() {
-      formData.hadMedicalVisit = this.dataset.value === 'yes';
-      document.querySelectorAll('#step2 .option-card').forEach(c => c.classList.remove('selected'));
-      this.classList.add('selected');
-      setTimeout(() => {
-        currentStep++;
-        showStep(currentStep);
-      }, 300);
-    });
-  });
-
-  // ... Additional event listeners for other steps
-
-  // Handle form submission
-  function handleSubmit() {
-    console.log('Form submitted with data:', formData);
-    // Add your form submission logic here
   }
 
   // Initialize the form
