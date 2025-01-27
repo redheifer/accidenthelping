@@ -112,7 +112,7 @@ const Footer = () => (
     <img 
       src="/logo.png" 
       alt="LegalUplift Logo" 
-      className="w-12 h-12 mx-auto logo-bounce"
+      className="w-12 h-12 mx-auto"
     />
     <div className="space-y-2">
       <h3 className="text-lg font-semibold text-gray-800">
