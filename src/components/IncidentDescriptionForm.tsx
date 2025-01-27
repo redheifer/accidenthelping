@@ -29,10 +29,10 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe your incident..."
-          className="min-h-[200px] bg-white/50"
+          className="min-h-[200px] bg-white/10 text-white placeholder:text-white/60"
           maxLength={2000}
         />
-        <div className="flex justify-between text-sm text-gray-600">
+        <div className="flex justify-between text-sm text-white">
           <div>
             {description.length < 20 && "Please enter at least 20 characters"}
           </div>
@@ -42,7 +42,7 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
         </div>
         <Button
           onClick={() => onSubmit(description)}
-          className="w-full py-6 text-lg"
+          className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
           disabled={description.length < 20}
         >
           Next
