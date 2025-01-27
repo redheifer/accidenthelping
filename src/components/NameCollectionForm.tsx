@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import ProgressIndicator from "./shared/ProgressIndicator";
@@ -13,12 +13,21 @@ interface NameCollectionFormProps {
 const NameCollectionForm = ({ onSubmit, compensationRange }: NameCollectionFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="space-y-6">
       <div className="mb-8">
         <ProgressIndicator value={66} />
-        <CompensationDisplay min={compensationRange.min} max={compensationRange.max} />
+        <CompensationDisplay min={75000} max={180000} isLoading={isLoading} />
         <QuestionHeader 
           title="What is your full name?"
         />
