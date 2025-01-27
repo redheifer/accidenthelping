@@ -59,11 +59,11 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
           onChange={handleChange}
           placeholder="000-000-0000"
           type="tel"
-          className="bg-white/50"
+          className="bg-white text-gray-900 placeholder:text-gray-500"
         />
         <Button
           onClick={handleSubmit}
-          className="w-full py-6 text-lg"
+          className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
           disabled={phoneNumber.replace(/\D/g, "").length !== 10}
         >
           Submit
