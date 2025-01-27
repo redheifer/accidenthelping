@@ -20,7 +20,7 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
         <CompensationDisplay min={compensationRange.min} max={compensationRange.max} />
         <QuestionHeader 
           title="Describe your incident"
-          description="Our system can understand large language models. A brief description of your accident will help us evaluate your case more accurately."
+          description="A brief description of your accident will help us evaluate your case more accurately. Our AI system will analyze your description to provide a more precise compensation estimate."
         />
       </div>
 
