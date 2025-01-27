@@ -27,19 +27,21 @@ const Index = () => {
     handleRestart,
   } = useAccidentForm();
 
+  const compensationRange = { min: 27503, max: 61478 };
+
   if (isComplete) {
     return (
-      <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-950 to-slate-900">
+      <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
         <FormComplete 
           onRestart={handleRestart} 
-          compensationRange={{ min: 27503, max: 61478 }}
+          compensationRange={compensationRange}
         />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen p-6 md:p-8 lg:p-12">
+    <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-7xl mx-auto space-y-8">
         {step === 1 && (
           <AccidentTypeSelection onSelect={handleTypeSelect} selectedType={selectedType} />
@@ -52,53 +54,53 @@ const Index = () => {
         {step === 3 && (
           <AttorneyQuestion 
             onSelect={handleAttorneyResponse}
-            compensationRange={{ min: 12750, max: 29750 }}
+            compensationRange={compensationRange}
           />
         )}
 
         {step === 4 && (
           <FaultQuestion 
             onSelect={handleFaultResponse}
-            compensationRange={{ min: 18900, max: 44100 }}
+            compensationRange={compensationRange}
           />
         )}
 
         {step === 5 && (
           <AccidentTimingQuestion
             onSelect={handleTimingResponse}
-            compensationRange={{ min: 47749, max: 66848 }}
+            compensationRange={compensationRange}
           />
         )}
 
         {step === 6 && (
           <IncidentDescriptionForm
             onSubmit={handleDescriptionSubmit}
-            compensationRange={{ min: 27503, max: 61478 }}
+            compensationRange={compensationRange}
           />
         )}
 
         {step === 7 && (
           <NameCollectionForm
             onSubmit={handleNameSubmit}
-            compensationRange={{ min: 27503, max: 61478 }}
+            compensationRange={compensationRange}
           />
         )}
 
         {step === 8 && (
           <EmailCollectionForm
             onSubmit={handleEmailSubmit}
-            compensationRange={{ min: 27503, max: 61478 }}
+            compensationRange={compensationRange}
           />
         )}
 
         {step === 9 && (
           <PhoneNumberForm
             onSubmit={handlePhoneSubmit}
-            compensationRange={{ min: 27503, max: 61478 }}
+            compensationRange={compensationRange}
           />
         )}
 
-        <div className="text-center text-sm text-muted-foreground max-w-3xl mx-auto">
+        <div className="text-center text-sm text-gray-500 max-w-3xl mx-auto">
           <p>
             Compensation for Accident Calculator powered by LegalUplift. This site is not a part of the YouTube, 
             Google or Facebook website; Google Inc or Facebook Inc. Additionally, This site is NOT endorsed 

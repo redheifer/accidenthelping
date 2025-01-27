@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import CompensationBox from "./CompensationBox";
+import { useToast } from "@/hooks/use-toast";
 
 interface PhoneNumberFormProps {
   onSubmit: (phoneNumber: string) => void;
@@ -9,6 +11,7 @@ interface PhoneNumberFormProps {
 
 const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const { toast } = useToast();
 
   const formatPhoneNumber = (value: string) => {
     const numbers = value.replace(/\D/g, "");
@@ -24,28 +27,34 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
     }
   };
 
-  const isValidPhoneNumber = phoneNumber.replace(/\D/g, "").length === 10;
+  const handleSubmit = () => {
+    const digitsOnly = phoneNumber.replace(/\D/g, "");
+    if (digitsOnly.length !== 10) {
+      toast({
+        title: "Invalid Phone Number",
+        description: "Please enter a valid 10-digit US phone number",
+        variant: "destructive",
+      });
+      return;
+    }
+    onSubmit(phoneNumber);
+  };
 
   return (
     <div className="space-y-6">
-      <div className="mb-8">
-        <div className="bg-card/50 rounded-lg p-4 mb-6 max-w-xs mx-auto">
-          <div className="text-center">
-            <div className="text-sm text-muted-foreground mb-1">Compensation amounts:</div>
-            <div className="text-2xl font-bold text-primary">
-              ${compensationRange.min.toLocaleString()} - ${compensationRange.max.toLocaleString()}
-            </div>
-          </div>
-          <div className="mt-2 relative h-2 bg-secondary rounded-full overflow-hidden">
-            <div className="absolute left-0 top-0 h-full bg-primary" style={{ width: "89%" }} />
-          </div>
-        </div>
+      <CompensationBox
+        min={compensationRange.min}
+        max={compensationRange.max}
+        progress={89}
+      />
 
-        <div className="space-y-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-            What is your phone number?
-          </h2>
-        </div>
+      <div className="space-y-4 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          What is your phone number?
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          We'll use this to contact you about your compensation estimate.
+        </p>
       </div>
 
       <div className="max-w-2xl mx-auto space-y-4">
@@ -54,12 +63,12 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
           onChange={handleChange}
           placeholder="000-000-0000"
           type="tel"
-          className="bg-card/50"
+          className="bg-white/50"
         />
         <Button
-          onClick={() => onSubmit(phoneNumber)}
+          onClick={handleSubmit}
           className="w-full py-6 text-lg"
-          disabled={!isValidPhoneNumber}
+          disabled={phoneNumber.replace(/\D/g, "").length !== 10}
         >
           Submit
         </Button>
