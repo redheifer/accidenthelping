@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import ProgressIndicator from "./shared/ProgressIndicator";
@@ -13,6 +13,12 @@ interface IncidentDescriptionFormProps {
 const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescriptionFormProps) => {
   const [description, setDescription] = useState("");
   const [currentRange, setCurrentRange] = useState(compensationRange);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newDescription = e.target.value;
@@ -21,8 +27,8 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
     // Update compensation range if description is substantial
     if (newDescription.length >= 100) {
       setCurrentRange({
-        min: Math.round(compensationRange.min * 1.5),
-        max: Math.round(compensationRange.max * 1.5)
+        min: 63000,
+        max: 150000
       });
     } else {
       setCurrentRange(compensationRange);
@@ -32,8 +38,12 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <ProgressIndicator value={55} className="bg-green-500" />
-        <CompensationDisplay min={currentRange.min} max={currentRange.max} />
+        <ProgressIndicator value={55} />
+        <CompensationDisplay 
+          min={currentRange.min} 
+          max={currentRange.max}
+          isLoading={isLoading} 
+        />
         <QuestionHeader 
           title="Describe your incident"
           description="A brief description of your accident will help us evaluate your case more accurately. Our AI system will analyze your description to provide a more precise compensation estimate."

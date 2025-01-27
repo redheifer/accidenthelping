@@ -7,6 +7,15 @@ interface MedicalVisitQuestionProps {
 }
 
 const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
+  const handleSelect = (hadMedicalVisit: boolean) => {
+    // Set initial compensation range based on medical visit
+    const baseRange = hadMedicalVisit ? 
+      { min: 27503, max: 61478 } : 
+      { min: 15000, max: 35000 };
+    
+    onSelect(hadMedicalVisit);
+  };
+
   return (
     <div className="space-y-8">
       <div className="mb-8">
@@ -15,7 +24,7 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
             <Progress 
               value={11} 
               className="h-6 bg-gray-800" 
-              indicatorClassName="bg-primary transition-all"
+              indicatorClassName="bg-green-500 transition-all"
             />
             <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
               11% Complete
@@ -25,9 +34,9 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
 
         <div className="bg-[#1a1c2e] rounded-lg p-6 mb-8 max-w-xs mx-auto">
           <div className="text-center">
-            <div className="text-sm text-white/80 mb-2">Compensation amounts:</div>
+            <div className="text-sm text-white/80 mb-2">Initial compensation range:</div>
             <div className="text-2xl font-bold text-white bg-green-600 rounded-md py-2">
-              ${27503} - ${61478}
+              $15,000 - $35,000
             </div>
           </div>
         </div>
@@ -46,12 +55,12 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
         <AccidentTypeCard
           icon={<Stethoscope className="w-12 h-12" />}
           title="Yes"
-          onClick={() => onSelect(true)}
+          onClick={() => handleSelect(true)}
         />
         <AccidentTypeCard
           icon={<XCircle className="w-12 h-12" />}
           title="No"
-          onClick={() => onSelect(false)}
+          onClick={() => handleSelect(false)}
         />
       </div>
     </div>
