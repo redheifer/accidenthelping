@@ -10,10 +10,10 @@ const ProgressIndicator = ({ value }: ProgressIndicatorProps) => {
       <div className="relative h-6">
         <Progress 
           value={value} 
-          className="h-6 bg-gray-100" 
+          className="h-6 bg-gray-800" 
           indicatorClassName="bg-primary transition-all"
         />
-        <span className="absolute inset-0 text-gray-900 text-sm flex items-center justify-center font-medium">
+        <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
           {value}% Complete
         </span>
       </div>
