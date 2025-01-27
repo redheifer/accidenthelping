@@ -15,20 +15,22 @@ const EmailCollectionForm = ({ onSubmit, compensationRange }: EmailCollectionFor
     <div className="space-y-6">
       <div className="mb-8">
         <div className="max-w-xl mx-auto w-full space-y-2 mb-8">
-          <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Progress</span>
-            <span>77%</span>
+          <div className="relative h-6">
+            <Progress 
+              value={77} 
+              className="h-6 bg-gray-100" 
+              indicatorClassName="bg-primary transition-all"
+            />
+            <span className="absolute inset-0 text-gray-900 text-sm flex items-center justify-center font-medium">
+              77% Complete
+            </span>
           </div>
-          <Progress 
-            value={77} 
-            className="h-3 rounded-full bg-secondary" 
-          />
         </div>
 
-        <div className="bg-[#F2FCE2] rounded-lg p-4 mb-6 max-w-xs mx-auto">
+        <div className="bg-[#F2FCE2] rounded-lg p-6 mb-8 max-w-xs mx-auto">
           <div className="text-center">
-            <div className="text-sm text-gray-600 mb-1">Compensation amounts:</div>
-            <div className="text-2xl font-bold text-white bg-green-500 rounded-md py-1">
+            <div className="text-sm text-gray-600 mb-2">Compensation amounts:</div>
+            <div className="text-2xl font-bold text-white bg-green-500 rounded-md py-2">
               ${compensationRange.min.toLocaleString()} - ${compensationRange.max.toLocaleString()}
             </div>
           </div>
@@ -38,7 +40,7 @@ const EmailCollectionForm = ({ onSubmit, compensationRange }: EmailCollectionFor
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             What is the best email to send your compensation estimate to?
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-lg text-gray-600">
             Our system will review your case, and email you the results directly to your inbox same-day.
           </p>
         </div>
@@ -50,7 +52,7 @@ const EmailCollectionForm = ({ onSubmit, compensationRange }: EmailCollectionFor
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Your email address"
           type="email"
-          className="bg-card/50"
+          className="bg-white/50"
         />
         <Button
           onClick={() => onSubmit(email)}
