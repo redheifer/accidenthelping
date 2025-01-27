@@ -15,14 +15,16 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
     <div className="space-y-6">
       <div className="mb-8">
         <div className="max-w-xl mx-auto w-full space-y-2">
-          <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Progress</span>
-            <span>55%</span>
+          <div className="relative h-6">
+            <Progress 
+              value={55} 
+              className="h-6 bg-gray-100" 
+              indicatorClassName="bg-sky-400 transition-all"
+            />
+            <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
+              55% Complete
+            </span>
           </div>
-          <Progress 
-            value={55} 
-            className="h-3 rounded-full bg-secondary" 
-          />
         </div>
 
         <div className="bg-card/50 rounded-lg p-4 mb-6 max-w-xs mx-auto">

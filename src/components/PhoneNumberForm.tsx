@@ -44,14 +44,16 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
   return (
     <div className="space-y-6">
       <div className="max-w-xl mx-auto w-full space-y-2">
-        <div className="flex justify-between text-sm text-muted-foreground">
-          <span>Progress</span>
-          <span>88%</span>
+        <div className="relative h-6">
+          <Progress 
+            value={88} 
+            className="h-6 bg-gray-100" 
+            indicatorClassName="bg-sky-400 transition-all"
+          />
+          <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
+            88% Complete
+          </span>
         </div>
-        <Progress 
-          value={88} 
-          className="h-3 rounded-full bg-secondary" 
-        />
       </div>
 
       <CompensationBox
@@ -90,4 +92,3 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
 };
 
 export default PhoneNumberForm;
-
