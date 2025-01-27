@@ -1,0 +1,50 @@
+<div class="incident-form-container">
+  <div class="progress-section">
+    <div class="progress-bar">
+      <div class="progress-indicator" data-value="55"></div>
+      <span class="progress-text">55% Complete</span>
+    </div>
+  </div>
+
+  <div class="compensation-display">
+    <div class="compensation-box">
+      <div class="compensation-label">Compensation amounts:</div>
+      <div class="compensation-amount" id="compensationAmount">$75,000 - $125,000</div>
+    </div>
+  </div>
+
+  <div class="form-header">
+    <h2>Describe your incident</h2>
+    <p>A brief description of your accident will help us evaluate your case more accurately. Our AI system will analyze your description to provide a more precise compensation estimate.</p>
+  </div>
+
+  <div class="form-content">
+    <div class="form-group">
+      <textarea 
+        id="incidentDescription" 
+        placeholder="Describe your incident..."
+        maxlength="2000"
+      ></textarea>
+      <div class="character-count">
+        <span id="currentLength">0</span>/2000
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input 
+        type="text" 
+        id="zipCode" 
+        placeholder="Enter incident ZIP code"
+      />
+      <p class="error-message" id="zipError"></p>
+    </div>
+
+    <button 
+      id="nextButton" 
+      class="submit-button" 
+      disabled
+    >
+      Next
+    </button>
+  </div>
+</div>
