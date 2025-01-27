@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import ProgressIndicator from "./shared/ProgressIndicator";
@@ -13,13 +13,20 @@ interface IncidentDescriptionFormProps {
 const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescriptionFormProps) => {
   const [description, setDescription] = useState("");
   const [currentRange, setCurrentRange] = useState(compensationRange);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newDescription = e.target.value;
     setDescription(newDescription);
     
-    // Update compensation range if description is substantial
     if (newDescription.length >= 100) {
       setCurrentRange({
         min: 65000,
@@ -32,11 +39,10 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
 
   const handleNext = () => {
     setIsLoading(true);
-    // Simulate loading for 0.9 seconds before submitting
     setTimeout(() => {
       setIsLoading(false);
       onSubmit(description);
-    }, 900);
+    }, 300);
   };
 
   return (

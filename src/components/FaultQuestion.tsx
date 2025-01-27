@@ -1,5 +1,5 @@
 import { Frown, Smile } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AccidentTypeCard from "./AccidentTypeCard";
 import { Progress } from "./ui/progress";
 import CompensationDisplay from "./shared/CompensationDisplay";
@@ -10,17 +10,22 @@ interface FaultQuestionProps {
 }
 
 const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSelect = async (atFault: boolean) => {
     setSelectedOption(atFault);
     setIsLoading(true);
-    
-    // Simulate loading delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 300));
     setIsLoading(false);
-    
     onSelect(atFault);
   };
 
