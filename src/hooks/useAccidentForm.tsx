@@ -7,6 +7,7 @@ export const useAccidentForm = () => {
   const [step, setStep] = useState<FormStep>(1);
   const [isComplete, setIsComplete] = useState(false);
   const [hasAttorney, setHasAttorney] = useState(false);
+  const [isAtFault, setIsAtFault] = useState(false);
   const { toast } = useToast();
 
   const handleTypeSelect = (id: string) => {
@@ -45,6 +46,7 @@ export const useAccidentForm = () => {
 
   const handleFaultResponse = (atFault: boolean) => {
     if (atFault) {
+      setIsAtFault(true);
       setIsComplete(true);
       toast({
         title: "We're Sorry",
@@ -122,6 +124,7 @@ export const useAccidentForm = () => {
     setStep(1);
     setIsComplete(false);
     setHasAttorney(false);
+    setIsAtFault(false);
     toast({
       title: "Form Reset",
       description: "You can start over with your claim evaluation.",
@@ -133,6 +136,7 @@ export const useAccidentForm = () => {
     step,
     isComplete,
     hasAttorney,
+    isAtFault,
     handleTypeSelect,
     handleMedicalVisit,
     handleAttorneyResponse,

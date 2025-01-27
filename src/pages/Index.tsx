@@ -10,6 +10,7 @@ import EmailCollectionForm from "@/components/EmailCollectionForm";
 import PhoneNumberForm from "@/components/PhoneNumberForm";
 import FormComplete from "@/components/FormComplete";
 import AttorneyFormComplete from "@/components/AttorneyFormComplete";
+import FaultFormComplete from "@/components/FaultFormComplete";
 
 const Index = () => {
   const {
@@ -17,6 +18,7 @@ const Index = () => {
     step,
     isComplete,
     hasAttorney,
+    isAtFault,
     handleTypeSelect,
     handleMedicalVisit,
     handleAttorneyResponse,
@@ -36,6 +38,14 @@ const Index = () => {
       return (
         <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
           <AttorneyFormComplete onRestart={handleRestart} />
+          <Footer />
+        </div>
+      );
+    }
+    if (isAtFault) {
+      return (
+        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-gradient-to-b from-blue-50 to-white">
+          <FaultFormComplete onRestart={handleRestart} />
           <Footer />
         </div>
       );
