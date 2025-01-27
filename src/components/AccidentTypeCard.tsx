@@ -12,16 +12,17 @@ const AccidentTypeCard = ({ icon, title, onClick, selected }: AccidentTypeCardPr
     <button
       onClick={onClick}
       className={cn(
-        "w-full h-full p-6 card-gradient rounded-2xl glow cursor-pointer group",
-        "flex flex-col items-center justify-center gap-4 min-h-[200px]",
-        "border border-white/10 hover:border-primary/50",
-        selected && "border-primary border-2"
+        "w-full aspect-square p-4 rounded-xl transition-all duration-300",
+        "flex flex-col items-center justify-center gap-3",
+        "bg-white hover:bg-gray-50",
+        "border-2 border-transparent hover:border-blue-500",
+        selected && "border-blue-500 bg-blue-50"
       )}
     >
-      <div className="text-white text-4xl group-hover:scale-110 transition-all duration-300 logo-bounce">
-        {icon}
-      </div>
-      <h3 className="text-lg font-medium text-white text-center">{title}</h3>
+      <div className="text-blue-500">{icon}</div>
+      <h3 className="text-blue-500 font-semibold text-center whitespace-pre-line text-sm">
+        {title}
+      </h3>
     </button>
   );
 };
