@@ -8,7 +8,6 @@ interface FormCompleteProps {
 
 const FormComplete = ({ onRestart, compensationRange }: FormCompleteProps) => {
   const handleShare = (platform: string) => {
-    // Share functionality can be implemented here
     console.log(`Sharing via ${platform}`);
   };
 
@@ -22,24 +21,21 @@ const FormComplete = ({ onRestart, compensationRange }: FormCompleteProps) => {
         <div className="space-y-2">
           <p className="text-white/80">Your estimated compensation is within:</p>
           <p className="text-4xl md:text-5xl font-bold text-white">
-            ${compensationRange.min.toLocaleString()} - ${compensationRange.max.toLocaleString()}
+            $75,000 - $190,000
           </p>
         </div>
       </div>
 
       {/* Pending notification */}
       <div className="bg-card/50 p-8 rounded-lg space-y-4">
-        <h3 className="text-2xl font-bold text-gray-800">Your Compensation is Pending:</h3>
-        <p className="text-lg text-gray-600">
+        <h3 className="text-2xl font-bold text-white">Your Compensation is Pending:</h3>
+        <p className="text-lg text-white">
           We will be calling you shortly. Please leave your phone on loud and answer immediately.
         </p>
       </div>
 
       {/* Sharing section */}
       <div className="space-y-6">
-        <p className="text-gray-600">
-          Earn referral credits by sharing this AI app with your friends and family. Click below to share now!
-        </p>
         <div className="flex justify-center gap-4">
           <Button
             variant="outline"
@@ -47,7 +43,7 @@ const FormComplete = ({ onRestart, compensationRange }: FormCompleteProps) => {
             className="rounded-full bg-blue-900/50 hover:bg-blue-800"
             onClick={() => handleShare('link')}
           >
-            <Link2 className="h-5 w-5" />
+            <Link2 className="h-5 w-5 text-white" />
           </Button>
           <Button
             variant="outline"
@@ -55,7 +51,7 @@ const FormComplete = ({ onRestart, compensationRange }: FormCompleteProps) => {
             className="rounded-full bg-blue-900/50 hover:bg-blue-800"
             onClick={() => handleShare('whatsapp')}
           >
-            <MessageSquare className="h-5 w-5" />
+            <MessageSquare className="h-5 w-5 text-white" />
           </Button>
           <Button
             variant="outline"
@@ -63,7 +59,7 @@ const FormComplete = ({ onRestart, compensationRange }: FormCompleteProps) => {
             className="rounded-full bg-blue-900/50 hover:bg-blue-800"
             onClick={() => handleShare('telegram')}
           >
-            <Send className="h-5 w-5" />
+            <Send className="h-5 w-5 text-white" />
           </Button>
           <Button
             variant="outline"
@@ -71,7 +67,7 @@ const FormComplete = ({ onRestart, compensationRange }: FormCompleteProps) => {
             className="rounded-full bg-blue-900/50 hover:bg-blue-800"
             onClick={() => handleShare('twitter')}
           >
-            <Twitter className="h-5 w-5" />
+            <Twitter className="h-5 w-5 text-white" />
           </Button>
         </div>
       </div>
