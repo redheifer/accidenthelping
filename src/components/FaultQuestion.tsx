@@ -26,7 +26,7 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
 
   const getCompensationRange = () => {
     if (selectedOption === false) {
-      return { min: 61478, max: 98000 };
+      return { min: 55000, max: 95000 };
     }
     return compensationRange;
   };

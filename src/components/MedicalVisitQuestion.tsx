@@ -25,9 +25,9 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
 
   const getCompensationRange = () => {
     if (selectedOption === null) {
-      return { min: 0, max: 5000 };
+      return { min: 25000, max: 50000 };
     }
-    return { min: 27503, max: 61478 };
+    return selectedOption ? { min: 45000, max: 85000 } : { min: 35000, max: 65000 };
   };
 
   return (

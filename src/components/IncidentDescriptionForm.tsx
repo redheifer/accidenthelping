@@ -22,8 +22,8 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
     // Update compensation range if description is substantial
     if (newDescription.length >= 100) {
       setCurrentRange({
-        min: 63000,
-        max: 150000
+        min: 65000,
+        max: 105000
       });
     } else {
       setCurrentRange(compensationRange);
