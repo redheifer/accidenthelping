@@ -12,14 +12,16 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
     <div className="space-y-6">
       <div className="mb-8">
         <div className="max-w-xl mx-auto w-full space-y-2">
-          <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Progress</span>
-            <span>22%</span>
+          <div className="relative h-6">
+            <Progress 
+              value={22} 
+              className="h-6 bg-gray-100" 
+              indicatorClassName="bg-sky-400 transition-all"
+            />
+            <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
+              22% Complete
+            </span>
           </div>
-          <Progress 
-            value={22} 
-            className="h-3 rounded-full bg-secondary" 
-          />
         </div>
 
         <div className="bg-card/50 rounded-lg p-4 mb-6 max-w-xs mx-auto">
@@ -32,7 +34,7 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
         </div>
 
         <div className="space-y-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             Are you currently represented by an attorney?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

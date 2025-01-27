@@ -40,7 +40,7 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
         </div>
 
         <div className="space-y-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
             Describe your incident
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
