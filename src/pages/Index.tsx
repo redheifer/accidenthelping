@@ -110,7 +110,7 @@ const Index = () => {
 const Footer = () => (
   <div className="mt-16 pb-8 text-center space-y-4">
     <img 
-      src="/logo.png" 
+      src="/lovable-uploads/054b19e5-dd70-4642-80c6-1b7d2d8a1b03.png" 
       alt="LegalUplift Logo" 
       className="w-12 h-12 mx-auto"
     />
