@@ -35,7 +35,7 @@ const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQ
             key={timing}
             onClick={() => onSelect(timing)}
             variant="secondary"
-            className="w-full py-6 text-lg hover:bg-primary hover:text-white transition-colors"
+            className="w-full py-6 text-lg hover:bg-primary hover:text-black transition-colors"
           >
             {timing}
           </Button>
