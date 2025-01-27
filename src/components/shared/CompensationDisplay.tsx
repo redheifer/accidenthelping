@@ -8,12 +8,35 @@ interface CompensationDisplayProps {
 }
 
 const CompensationDisplay = ({ min, max, isLoading = false }: CompensationDisplayProps) => {
+  const [progress, setProgress] = useState(0);
   const [showAmount, setShowAmount] = useState(false);
 
   useEffect(() => {
-    if (!isLoading) {
-      const timer = setTimeout(() => setShowAmount(true), 1000);
-      return () => clearTimeout(timer);
+    if (isLoading) {
+      setShowAmount(false);
+      setProgress(0);
+      
+      // Animate progress from 0 to 100 over 2 seconds
+      const startTime = Date.now();
+      const duration = 2000; // 2 seconds
+
+      const updateProgress = () => {
+        const elapsed = Date.now() - startTime;
+        const newProgress = Math.min((elapsed / duration) * 100, 100);
+        
+        setProgress(newProgress);
+        
+        if (newProgress < 100) {
+          requestAnimationFrame(updateProgress);
+        } else {
+          setShowAmount(true);
+        }
+      };
+
+      requestAnimationFrame(updateProgress);
+    } else {
+      setProgress(100);
+      setShowAmount(true);
     }
   }, [isLoading]);
 
@@ -21,12 +44,16 @@ const CompensationDisplay = ({ min, max, isLoading = false }: CompensationDispla
     <div className="bg-gray-800/50 rounded-lg p-6 mb-8 max-w-xs mx-auto">
       <div className="text-center">
         <div className="text-sm text-gray-300 mb-2">Compensation amounts:</div>
-        {isLoading || !showAmount ? (
+        {!showAmount ? (
           <div className="h-10 flex items-center justify-center">
-            <Progress className="w-3/4 mx-auto" value={100} />
+            <Progress 
+              value={progress} 
+              className="w-3/4 mx-auto h-2 bg-gray-700" 
+              indicatorClassName="bg-green-500 transition-all duration-100"
+            />
           </div>
         ) : (
-          <div className="text-2xl font-bold text-white bg-green-600 rounded-md py-2">
+          <div className="text-2xl font-bold text-white bg-green-600 rounded-md py-2 animate-fade-in">
             ${min.toLocaleString()} - ${max.toLocaleString()}
           </div>
         )}
