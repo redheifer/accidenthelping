@@ -16,7 +16,7 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
             <Progress 
               value={22} 
               className="h-6 bg-gray-800" 
-              indicatorClassName="bg-primary transition-all"
+              indicatorClassName="bg-green-500 transition-all"
             />
             <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
               22% Complete
