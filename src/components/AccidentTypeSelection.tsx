@@ -31,7 +31,7 @@ const AccidentTypeSelection = ({ onSelect, selectedType }: AccidentTypeSelection
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-4">
           <img 
-            src="/lovable-uploads/054b19e5-dd70-4642-80c6-1b7d2d8a1b03.png" 
+            src="/logo.png" 
             alt="LegalUplift Logo" 
             className="w-12 h-12"
           />
