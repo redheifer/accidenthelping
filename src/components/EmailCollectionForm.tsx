@@ -14,6 +14,11 @@ const EmailCollectionForm = ({ onSubmit, compensationRange }: EmailCollectionFor
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => {
@@ -46,7 +51,7 @@ const EmailCollectionForm = ({ onSubmit, compensationRange }: EmailCollectionFor
         <Button
           onClick={() => onSubmit(email)}
           className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
-          disabled={!email.trim() || !email.includes("@")}
+          disabled={!isValidEmail(email)}
         >
           Next
         </Button>
