@@ -6,7 +6,7 @@ const getUserIP = async (): Promise<string> => {
   try {
     const response = await fetch('https://ip.fisetbrian.workers.dev/');
     const data = await response.json();
-    return data.IP;
+    return data.ip; // Changed from data.IP to data.ip
   } catch (error) {
     console.error('Error fetching IP:', error);
     return '127.0.0.1';
