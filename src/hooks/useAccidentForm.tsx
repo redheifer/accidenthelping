@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import type { FormStep } from "@/types/form";
 import { sendPingPostWebhook } from "@/utils/webhookService";
+import { mapTimingToWebhook } from "@/utils/timingMapper";
 
 export const useAccidentForm = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -48,14 +49,15 @@ export const useAccidentForm = () => {
   };
 
   const handleTimingResponse = (timing: string) => {
+    const webhookTiming = mapTimingToWebhook(timing);
     const recentTimings = [
-      "Within 1 Week",
-      "Within 1-3 months",
-      "Within 4-6 months",
-      "Within 1 Year"
+      "Within the last 10 days",
+      "Within the last 30 days",
+      "Within the last 6 months",
+      "Within the last 1 year"
     ];
 
-    if (recentTimings.includes(timing)) {
+    if (recentTimings.includes(webhookTiming)) {
       setStep(6);
     } else {
       setIsTooOld(true);
