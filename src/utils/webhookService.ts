@@ -6,7 +6,8 @@ const getUserIP = async (): Promise<string> => {
   try {
     const response = await fetch('https://ip.fisetbrian.workers.dev/');
     const data = await response.json();
-    return data.ip; // Changed from data.IP to data.ip
+    console.log('Fetched IP:', data.ip);
+    return data.ip;
   } catch (error) {
     console.error('Error fetching IP:', error);
     return '127.0.0.1';
@@ -22,12 +23,15 @@ export const sendPingPostWebhook = async (
     console.log('Starting ping request with form data:', formData);
     
     const userIP = await getUserIP();
+    console.log('Using IP address:', userIP);
+    
     const formDataWithTiming = {
       ...formData,
-      timing: mapTimingToWebhook(formData.timing || '')
+      timing: mapTimingToWebhook(formData.timing || ''),
+      IP_Address: userIP
     };
     
-    const pingPayload = buildPingPayload({ ...formDataWithTiming, IP_Address: userIP });
+    const pingPayload = buildPingPayload({ ...formDataWithTiming });
     console.log('Sending ping request with payload:', JSON.stringify(pingPayload, null, 2));
 
     const pingResponse = await fetch(API_URL, {
@@ -54,7 +58,7 @@ export const sendPingPostWebhook = async (
     }
 
     const postPayload = buildPostPayload(
-      { ...formDataWithTiming, IP_Address: userIP },
+      { ...formDataWithTiming },
       leadId,
       bidId,
       trustedFormCertUrl,
