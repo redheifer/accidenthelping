@@ -8,6 +8,7 @@ export const useAccidentForm = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [hasAttorney, setHasAttorney] = useState(false);
   const [isAtFault, setIsAtFault] = useState(false);
+  const [isTooOld, setIsTooOld] = useState(false);
   const { toast } = useToast();
 
   const handleTypeSelect = (id: string) => {
@@ -56,6 +57,7 @@ export const useAccidentForm = () => {
     if (recentTimings.includes(timing)) {
       setStep(6);
     } else {
+      setIsTooOld(true);
       setIsComplete(true);
       toast({
         title: "We're Sorry",
@@ -93,6 +95,7 @@ export const useAccidentForm = () => {
     setIsComplete(false);
     setHasAttorney(false);
     setIsAtFault(false);
+    setIsTooOld(false);
   };
 
   return {
@@ -101,6 +104,7 @@ export const useAccidentForm = () => {
     isComplete,
     hasAttorney,
     isAtFault,
+    isTooOld,
     handleTypeSelect,
     handleMedicalVisit,
     handleAttorneyResponse,
