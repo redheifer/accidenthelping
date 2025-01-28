@@ -9,7 +9,39 @@ export const sendPingPostWebhook = async (
   try {
     console.log('Starting ping request with form data:', formData);
     
-    const pingPayload = buildPingPayload(formData);
+    // Calculate incident date based on timing
+    const timing = formData.timing || '';
+    let incidentDate = new Date();
+    
+    switch(timing) {
+      case "Within 1 Week":
+        incidentDate.setDate(incidentDate.getDate() - 7);
+        break;
+      case "Within 1-3 months":
+        incidentDate.setMonth(incidentDate.getMonth() - 2);
+        break;
+      case "Within 4-6 months":
+        incidentDate.setMonth(incidentDate.getMonth() - 5);
+        break;
+      case "Within 1 Year":
+        incidentDate.setMonth(incidentDate.getMonth() - 9);
+        break;
+      case "Within 2 Years":
+        incidentDate.setFullYear(incidentDate.getFullYear() - 1);
+        break;
+      case "Longer than 2 Years":
+        incidentDate.setFullYear(incidentDate.getFullYear() - 2);
+        break;
+      default:
+        incidentDate = new Date();
+    }
+
+    const formDataWithDate = {
+      ...formData,
+      accidentDate: incidentDate.toISOString().split('T')[0] // Format as YYYY-MM-DD
+    };
+    
+    const pingPayload = buildPingPayload(formDataWithDate);
     console.log('Sending ping request with payload:', JSON.stringify(pingPayload, null, 2));
 
     const pingResponse = await fetch(API_URL, {
@@ -29,7 +61,7 @@ export const sendPingPostWebhook = async (
     }
 
     const postPayload = buildPostPayload(
-      formData,
+      formDataWithDate,
       pingData.leadId,
       pingData.bidId,
       trustedFormCertUrl,
