@@ -1,11 +1,8 @@
 import { FormData } from './apiConfig';
 import { getStateAbbreviation } from './stateAbbreviations';
-import { calculateIncidentDate } from './dateCalculations';
 import { API_KEY } from './apiConfig';
 
 export const buildPingPayload = (formData: FormData) => {
-  const incidentDate = calculateIncidentDate(formData.timing || '');
-  
   return {
     Request: {
       Mode: "ping",
@@ -21,7 +18,7 @@ export const buildPingPayload = (formData: FormData) => {
       Injured: "Yes",
       Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
       Primary_Injury: formData.injuryType,
-      Incident_Date: incidentDate,
+      Incident_Date: formData.timing || "Within the last 30 days", // Using timing string instead of date
       Skip_Dupe_Check: "1",
       Format: "JSON"
     }
@@ -35,8 +32,6 @@ export const buildPostPayload = (
   trustedFormCertUrl: string,
   tcpaLanguage: string
 ) => {
-  const incidentDate = calculateIncidentDate(formData.timing || '');
-  
   return {
     Request: {
       Mode: "post",
@@ -58,7 +53,7 @@ export const buildPostPayload = (
       Injured: "Yes",
       Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
       Primary_Injury: formData.injuryType,
-      Incident_Date: incidentDate,
+      Incident_Date: formData.timing || "Within the last 30 days", // Using timing string instead of date
       Skip_Dupe_Check: "1",
       Lead_ID: leadId,
       Match_With_Bid_ID: bidId,
