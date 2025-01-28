@@ -49,6 +49,8 @@ export const sendPingPostWebhook = async (
       }
     };
 
+    console.log('Sending ping request with payload:', pingPayload);
+
     const pingResponse = await fetch(API_URL, {
       method: 'POST',
       headers: {
@@ -58,8 +60,10 @@ export const sendPingPostWebhook = async (
     });
 
     const pingData = await pingResponse.json();
+    console.log('Ping response:', pingData);
     
     if (!pingData.success) {
+      console.error('Ping request failed:', pingData);
       throw new Error('Ping request failed');
     }
 
@@ -95,6 +99,8 @@ export const sendPingPostWebhook = async (
       }
     };
 
+    console.log('Sending post request with payload:', postPayload);
+
     const postResponse = await fetch(API_URL, {
       method: 'POST',
       headers: {
@@ -104,6 +110,8 @@ export const sendPingPostWebhook = async (
     });
 
     const postData = await postResponse.json();
+    console.log('Post response:', postData);
+
     return {
       success: true,
       leadId: pingData.leadId,
