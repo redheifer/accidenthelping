@@ -20,6 +20,7 @@ interface FormData {
 }
 
 const API_URL = "https://api.fisetbrian.workers.dev/";
+const API_KEY = "4363f919c362693f3bfb2b978471ba01acd6dbf09853655f805022feb8ba199a";
 
 export const sendPingPostWebhook = async (
   formData: FormData,
@@ -31,7 +32,7 @@ export const sendPingPostWebhook = async (
     const pingPayload = {
       Request: {
         Mode: "ping",
-        Key: import.meta.env.VITE_API_KEY,
+        Key: API_KEY,
         API_Action: "pingPostConsent",
         TYPE: "37",
         IP_Address: "75.2.92.149",
@@ -71,7 +72,7 @@ export const sendPingPostWebhook = async (
     const postPayload = {
       Request: {
         Mode: "post",
-        Key: import.meta.env.VITE_API_KEY,
+        Key: API_KEY,
         API_Action: "pingPostConsent",
         TYPE: "37",
         IP_Address: "75.2.92.149",
