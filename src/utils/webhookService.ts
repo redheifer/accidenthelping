@@ -1,5 +1,6 @@
 import { API_URL, FormData, PingPostResponse } from './apiConfig';
 import { buildPingPayload, buildPostPayload } from './payloadBuilders';
+import { calculateIncidentDate } from './timingMapper';
 
 export const sendPingPostWebhook = async (
   formData: FormData,
@@ -9,36 +10,9 @@ export const sendPingPostWebhook = async (
   try {
     console.log('Starting ping request with form data:', formData);
     
-    // Calculate incident date based on timing
-    const timing = formData.timing || '';
-    let incidentDate = new Date();
-    
-    switch(timing) {
-      case "Within 1 Week":
-        incidentDate.setDate(incidentDate.getDate() - 7);
-        break;
-      case "Within 1-3 months":
-        incidentDate.setMonth(incidentDate.getMonth() - 2);
-        break;
-      case "Within 4-6 months":
-        incidentDate.setMonth(incidentDate.getMonth() - 5);
-        break;
-      case "Within 1 Year":
-        incidentDate.setMonth(incidentDate.getMonth() - 9);
-        break;
-      case "Within 2 Years":
-        incidentDate.setFullYear(incidentDate.getFullYear() - 1);
-        break;
-      case "Longer than 2 Years":
-        incidentDate.setFullYear(incidentDate.getFullYear() - 2);
-        break;
-      default:
-        incidentDate = new Date();
-    }
-
     const formDataWithDate = {
       ...formData,
-      accidentDate: incidentDate.toISOString().split('T')[0] // Format as YYYY-MM-DD
+      accidentDate: calculateIncidentDate(formData.timing || '')
     };
     
     const pingPayload = buildPingPayload(formDataWithDate);
