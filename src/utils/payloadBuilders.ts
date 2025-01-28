@@ -40,7 +40,7 @@ export const buildPostPayload = (
       TYPE: "37",
       IP_Address: "75.2.92.149",
       SRC: "AutoLegalUplift_",
-      Landing_Page: window.location.href,
+      Landing_Page: "https://legaluplift.com",
       Trusted_Form_URL: trustedFormCertUrl,
       First_Name: formData.firstName,
       Last_Name: formData.lastName,
