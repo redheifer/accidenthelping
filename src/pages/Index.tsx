@@ -11,6 +11,7 @@ import PhoneNumberForm from "@/components/PhoneNumberForm";
 import FormComplete from "@/components/FormComplete";
 import AttorneyFormComplete from "@/components/AttorneyFormComplete";
 import FaultFormComplete from "@/components/FaultFormComplete";
+import TimingFormComplete from "@/components/TimingFormComplete";
 import { Button } from "@/components/ui/button";
 import { FileText, Shield } from "lucide-react";
 
@@ -21,6 +22,7 @@ const Index = () => {
     isComplete,
     hasAttorney,
     isAtFault,
+    isTooOld,
     handleTypeSelect,
     handleMedicalVisit,
     handleAttorneyResponse,
@@ -48,6 +50,14 @@ const Index = () => {
       return (
         <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
           <FaultFormComplete onRestart={handleRestart} />
+          <Footer />
+        </div>
+      );
+    }
+    if (isTooOld) {
+      return (
+        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
+          <TimingFormComplete onRestart={handleRestart} />
           <Footer />
         </div>
       );
