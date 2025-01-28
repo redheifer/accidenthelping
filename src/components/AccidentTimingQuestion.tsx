@@ -21,8 +21,10 @@ const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQ
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <ProgressIndicator value={44} />
-        <CompensationDisplay min={75000} max={125000} />
+        <div className="flex items-center justify-between gap-4 max-w-4xl mx-auto mb-8">
+          <CompensationDisplay min={75000} max={125000} />
+          <ProgressIndicator value={44} />
+        </div>
         <QuestionHeader 
           title="When did this accident happen?"
           description="The more recent your accident, the more likely you can achieve a higher settlement. If you've been in an accident, don't delay in getting help."

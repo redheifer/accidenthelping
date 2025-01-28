@@ -1,6 +1,7 @@
 import { Scale, ThumbsUp } from "lucide-react";
 import AccidentTypeCard from "./AccidentTypeCard";
-import { Progress } from "./ui/progress";
+import ProgressIndicator from "./shared/ProgressIndicator";
+import CompensationDisplay from "./shared/CompensationDisplay";
 
 interface AttorneyQuestionProps {
   onSelect: (hasAttorney: boolean) => void;
@@ -11,26 +12,9 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <div className="max-w-xl mx-auto w-full space-y-2 mb-8">
-          <div className="relative h-6">
-            <Progress 
-              value={22} 
-              className="h-6 bg-gray-800" 
-              indicatorClassName="bg-green-500 transition-all"
-            />
-            <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
-              22% Complete
-            </span>
-          </div>
-        </div>
-
-        <div className="bg-[#1a1c2e] rounded-lg p-6 mb-8 max-w-xs mx-auto">
-          <div className="text-center">
-            <div className="text-sm text-white/80 mb-2">Compensation amounts:</div>
-            <div className="text-2xl font-bold text-white bg-green-600 rounded-md py-2">
-              ${compensationRange.min.toLocaleString()} - ${compensationRange.max.toLocaleString()}
-            </div>
-          </div>
+        <div className="flex items-center justify-between gap-4 max-w-4xl mx-auto mb-8">
+          <CompensationDisplay min={compensationRange.min} max={compensationRange.max} />
+          <ProgressIndicator value={22} />
         </div>
 
         <div className="space-y-4 text-center">

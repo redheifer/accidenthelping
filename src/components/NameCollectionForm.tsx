@@ -26,8 +26,10 @@ const NameCollectionForm = ({ onSubmit, compensationRange }: NameCollectionFormP
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <ProgressIndicator value={66} />
-        <CompensationDisplay min={75000} max={180000} isLoading={isLoading} />
+        <div className="flex items-center justify-between gap-4 max-w-4xl mx-auto mb-8">
+          <CompensationDisplay min={75000} max={180000} isLoading={isLoading} />
+          <ProgressIndicator value={66} />
+        </div>
         <QuestionHeader 
           title="What is your full name?"
         />

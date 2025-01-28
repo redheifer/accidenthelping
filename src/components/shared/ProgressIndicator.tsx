@@ -7,17 +7,15 @@ interface ProgressIndicatorProps {
 
 const ProgressIndicator = ({ value }: ProgressIndicatorProps) => {
   return (
-    <div className="max-w-xl mx-auto w-full space-y-2 mb-8">
-      <div className="relative h-6">
-        <Progress 
-          value={value} 
-          className="h-6 bg-gray-800" 
-          indicatorClassName="bg-green-500 transition-all"
-        />
-        <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
-          {value}% Complete
-        </span>
-      </div>
+    <div className="flex-1 relative h-6">
+      <Progress 
+        value={value} 
+        className="h-6 bg-gray-800" 
+        indicatorClassName="bg-green-500 transition-all"
+      />
+      <span className="absolute inset-0 text-white text-sm flex items-center justify-center font-medium">
+        {value}% Complete
+      </span>
     </div>
   );
 };

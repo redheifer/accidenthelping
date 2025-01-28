@@ -25,8 +25,10 @@ const EmailCollectionForm = ({ onSubmit, compensationRange }: EmailCollectionFor
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <ProgressIndicator value={77} />
-        <CompensationDisplay min={75000} max={180000} isLoading={isLoading} />
+        <div className="flex items-center justify-between gap-4 max-w-4xl mx-auto mb-8">
+          <CompensationDisplay min={75000} max={180000} isLoading={isLoading} />
+          <ProgressIndicator value={77} />
+        </div>
         <QuestionHeader 
           title="What is the best email to send your compensation estimate to?"
           description="Our system will review your case, and email you the results directly to your inbox same-day."
