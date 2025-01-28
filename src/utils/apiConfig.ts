@@ -1,5 +1,5 @@
 export const API_URL = "https://api.fisetbrian.workers.dev/";
-export const API_KEY = "4363f919c362693f3bfb2b978471ba01acd6dbf09853655f805022feb8ba199a";
+export const API_KEY = "29343937512f7a9d13a0391790b8c2a8790dbfbaf90e68d2ee8fe4a05a1eccda";
 
 export interface FormData {
   state?: string;
