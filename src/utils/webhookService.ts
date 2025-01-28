@@ -17,6 +17,7 @@ interface FormData {
   lastName?: string;
   phone?: string;
   email?: string;
+  timing?: string;
 }
 
 const API_URL = "https://api.fisetbrian.workers.dev/";
@@ -24,10 +25,6 @@ const API_KEY = "4363f919c362693f3bfb2b978471ba01acd6dbf09853655f805022feb8ba199
 
 const getStateAbbreviation = (state: string = "California") => {
   const stateAbbreviations: { [key: string]: string } = {
-    "Alabama": "AL",
-    "Alaska": "AK",
-    "Arizona": "AZ",
-    "Arkansas": "AR",
     "California": "CA",
     "Colorado": "CO",
     "Connecticut": "CT",
@@ -75,11 +72,36 @@ const getStateAbbreviation = (state: string = "California") => {
     "Wisconsin": "WI",
     "Wyoming": "WY"
   };
-  return stateAbbreviations[state] || "CA"; // Default to CA if state not found
+  return stateAbbreviations[state] || "CA";
 };
 
-const getCurrentDate = () => {
+const calculateIncidentDate = (timing: string): string => {
   const today = new Date();
+  
+  switch (timing) {
+    case "Within 1 Week":
+      today.setDate(today.getDate() - 7);
+      break;
+    case "Within 1-3 months":
+      today.setMonth(today.getMonth() - 2);
+      break;
+    case "Within 4-6 months":
+      today.setMonth(today.getMonth() - 5);
+      break;
+    case "Within 1 Year":
+      today.setFullYear(today.getFullYear() - 1);
+      break;
+    case "Within 2 Years":
+      today.setFullYear(today.getFullYear() - 2);
+      break;
+    case "Longer than 2 Years":
+      today.setFullYear(today.getFullYear() - 3);
+      break;
+    default:
+      // Default to current date if no timing is provided
+      break;
+  }
+  
   return today.toISOString().split('T')[0]; // Returns YYYY-MM-DD format
 };
 
@@ -89,7 +111,12 @@ export const sendPingPostWebhook = async (
   tcpaLanguage: string
 ): Promise<PingPostResponse> => {
   try {
-    // First, send the ping request
+    console.log('Starting ping request with form data:', formData);
+    
+    // Calculate incident date based on timing selection
+    const incidentDate = calculateIncidentDate(formData.timing || '');
+    
+    // Prepare the ping payload
     const pingPayload = {
       Request: {
         Mode: "ping",
@@ -105,13 +132,13 @@ export const sendPingPostWebhook = async (
         Injured: "Yes",
         Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
         Primary_Injury: formData.injuryType,
-        Incident_Date: getCurrentDate(),
+        Incident_Date: incidentDate,
         Skip_Dupe_Check: "1",
         Format: "JSON"
       }
     };
 
-    console.log('Sending ping request with payload:', pingPayload);
+    console.log('Sending ping request with payload:', JSON.stringify(pingPayload, null, 2));
 
     const pingResponse = await fetch(API_URL, {
       method: 'POST',
@@ -129,7 +156,7 @@ export const sendPingPostWebhook = async (
       throw new Error(pingData.response.error || 'Ping request failed');
     }
 
-    // If ping is successful, send the post request
+    // Prepare the post payload
     const postPayload = {
       Request: {
         Mode: "post",
@@ -151,7 +178,7 @@ export const sendPingPostWebhook = async (
         Injured: "Yes",
         Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
         Primary_Injury: formData.injuryType,
-        Incident_Date: getCurrentDate(),
+        Incident_Date: incidentDate,
         Skip_Dupe_Check: "1",
         Lead_ID: pingData.leadId,
         Match_With_Bid_ID: pingData.bidId,
@@ -161,7 +188,7 @@ export const sendPingPostWebhook = async (
       }
     };
 
-    console.log('Sending post request with payload:', postPayload);
+    console.log('Sending post request with payload:', JSON.stringify(postPayload, null, 2));
 
     const postResponse = await fetch(API_URL, {
       method: 'POST',
