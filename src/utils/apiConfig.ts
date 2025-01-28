@@ -14,6 +14,7 @@ export interface FormData {
   phone?: string;
   email?: string;
   timing?: string;
+  ip?: string;
 }
 
 export interface PingPostResponse {
