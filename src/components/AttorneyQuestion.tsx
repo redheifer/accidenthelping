@@ -37,6 +37,7 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
           icon={<ThumbsUp className="w-12 h-12" />}
           title="No"
           onClick={() => onSelect(false)}
+          className="shadow-[0_0_30px_rgba(134,239,172,0.1)]"
         />
       </div>
     </div>
