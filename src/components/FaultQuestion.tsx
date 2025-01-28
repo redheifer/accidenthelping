@@ -55,7 +55,7 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <div className="grid grid-cols-2 gap-3 md:gap-6 max-w-3xl mx-auto">
         <AccidentTypeCard
           icon={<Frown className="w-12 h-12" />}
           title="Yes"

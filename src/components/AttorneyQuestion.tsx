@@ -27,7 +27,7 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <div className="grid grid-cols-2 gap-3 md:gap-6 max-w-3xl mx-auto">
         <AccidentTypeCard
           icon={<Scale className="w-12 h-12" />}
           title="Yes"
@@ -37,7 +37,7 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
           icon={<ThumbsUp className="w-12 h-12" />}
           title="No"
           onClick={() => onSelect(false)}
-          className="shadow-[0_0_30px_rgba(134,239,172,0.1)]"
+          className="shadow-[0_0_30px_rgba(134,239,172,0.2)]"
         />
       </div>
     </div>
