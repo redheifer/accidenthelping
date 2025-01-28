@@ -10,12 +10,14 @@ interface AccidentTimingQuestionProps {
 
 const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQuestionProps) => {
   const timingOptions = [
-    "Within 1 Week",
-    "Within 1-3 months",
-    "Within 4-6 months",
-    "Within 1 Year",
-    "Within 2 Years",
-    "Longer than 2 Years"
+    "Within the last 10 days",
+    "Within the last 30 days",
+    "1-6 months",
+    "6-12 months",
+    "Within the last 1 year",
+    "1-2 years",
+    "Within the last 2 years",
+    "More than 2 years ago"
   ];
 
   return (
