@@ -29,9 +29,16 @@ const AccidentTypeSelection = ({ onSelect, selectedType }: AccidentTypeSelection
   return (
     <>
       <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-white">
-          Calculate Your Compensation Value
-        </h1>
+        <div className="flex items-center justify-center gap-4">
+          <img 
+            src="/lovable-uploads/054b19e5-dd70-4642-80c6-1b7d2d8a1b03.png" 
+            alt="LegalUplift Logo" 
+            className="w-12 h-12"
+          />
+          <h1 className="text-4xl md:text-5xl font-bold text-white">
+            LegalUplift Compensation Calculator
+          </h1>
+        </div>
         <p className="text-lg text-white/80 max-w-2xl mx-auto">
           The type of accident you were in can get you major compensation. 
           Tap below to see what yours is worth.
