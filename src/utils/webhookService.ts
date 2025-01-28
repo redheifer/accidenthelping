@@ -22,6 +22,18 @@ interface FormData {
 const API_URL = "https://api.fisetbrian.workers.dev/";
 const API_KEY = "4363f919c362693f3bfb2b978471ba01acd6dbf09853655f805022feb8ba199a";
 
+const formatState = (state: string = "California") => {
+  const stateMap: { [key: string]: string } = {
+    "California": "CA",
+    // Add more state mappings if needed
+  };
+  return stateMap[state] || state;
+};
+
+const formatDate = (date: string = new Date().toISOString()) => {
+  return new Date(date).toISOString().split('T')[0];
+};
+
 export const sendPingPostWebhook = async (
   formData: FormData,
   trustedFormCertUrl: string,
@@ -37,14 +49,14 @@ export const sendPingPostWebhook = async (
         TYPE: "37",
         IP_Address: "75.2.92.149",
         SRC: "AutoLegalUplift_",
-        State: formData.state,
+        State: formatState(formData.state),
         Zip: formData.zipcode,
         Has_Attorney: formData.hasAttorney ? "Yes" : "No",
         At_Fault: formData.atFault ? "Yes" : "No",
         Injured: "Yes",
         Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
         Primary_Injury: formData.injuryType,
-        Incident_Date: formData.accidentDate,
+        Incident_Date: formatDate(formData.accidentDate),
         Skip_Dupe_Check: "1",
         Format: "JSON"
       }
@@ -63,9 +75,9 @@ export const sendPingPostWebhook = async (
     const pingData = await pingResponse.json();
     console.log('Ping response:', pingData);
     
-    if (!pingData.success) {
+    if (!pingData.success && pingData.response?.status === "Error") {
       console.error('Ping request failed:', pingData);
-      throw new Error('Ping request failed');
+      throw new Error(pingData.response.error || 'Ping request failed');
     }
 
     // If ping is successful, send the post request
@@ -81,7 +93,7 @@ export const sendPingPostWebhook = async (
         Trusted_Form_URL: trustedFormCertUrl,
         First_Name: formData.firstName,
         Last_Name: formData.lastName,
-        State: formData.state,
+        State: formatState(formData.state),
         Zip: formData.zipcode,
         Primary_Phone: formData.phone,
         Email: formData.email,
@@ -90,7 +102,7 @@ export const sendPingPostWebhook = async (
         Injured: "Yes",
         Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
         Primary_Injury: formData.injuryType,
-        Incident_Date: formData.accidentDate,
+        Incident_Date: formatDate(formData.accidentDate),
         Skip_Dupe_Check: "1",
         Lead_ID: pingData.leadId,
         Match_With_Bid_ID: pingData.bidId,
@@ -124,7 +136,7 @@ export const sendPingPostWebhook = async (
     console.error('Error in ping-post webhook:', error);
     return {
       success: false,
-      message: 'Failed to submit form data'
+      message: error instanceof Error ? error.message : 'Failed to submit form data'
     };
   }
 };
