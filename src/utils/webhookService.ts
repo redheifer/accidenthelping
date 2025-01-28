@@ -29,15 +29,22 @@ export const sendPingPostWebhook = async (
     const pingData = await pingResponse.json();
     console.log('Ping response:', pingData);
     
-    if (!pingData.success && pingData.response?.status === "Error") {
+    if (!pingData.response || pingData.response.status === "Error") {
       console.error('Ping request failed:', pingData);
-      throw new Error(pingData.response.error || 'Ping request failed');
+      throw new Error(pingData.response?.error || 'Ping request failed');
+    }
+
+    const leadId = pingData.response.lead_id;
+    const bidId = pingData.response.bids?.bid?.[0]?.bid_id;
+
+    if (!leadId || !bidId) {
+      throw new Error('Missing lead_id or bid_id in ping response');
     }
 
     const postPayload = buildPostPayload(
       formDataWithTiming,
-      pingData.leadId,
-      pingData.bidId,
+      leadId,
+      bidId,
       trustedFormCertUrl,
       tcpaLanguage
     );
@@ -54,10 +61,14 @@ export const sendPingPostWebhook = async (
     const postData = await postResponse.json();
     console.log('Post response:', postData);
 
+    if (postData.response?.errors) {
+      throw new Error(postData.response.errors.error || 'Post request failed');
+    }
+
     return {
       success: true,
-      leadId: pingData.leadId,
-      bidId: pingData.bidId,
+      leadId: leadId,
+      bidId: bidId,
       message: 'Successfully submitted form data'
     };
 

@@ -18,7 +18,7 @@ export const buildPingPayload = (formData: FormData) => {
       Injured: "Yes",
       Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
       Primary_Injury: formData.injuryType,
-      Incident_Date: formData.timing || "Within the last 30 days", // Using timing string instead of date
+      Incident_Date: formData.timing || "Within the last 30 days",
       Skip_Dupe_Check: "1",
       Format: "JSON"
     }
@@ -53,7 +53,7 @@ export const buildPostPayload = (
       Injured: "Yes",
       Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
       Primary_Injury: formData.injuryType,
-      Incident_Date: formData.timing || "Within the last 30 days", // Using timing string instead of date
+      Incident_Date: formData.timing || "Within the last 30 days",
       Skip_Dupe_Check: "1",
       Lead_ID: leadId,
       Match_With_Bid_ID: bidId,
