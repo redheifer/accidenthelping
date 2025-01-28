@@ -1,6 +1,6 @@
 import { API_URL, FormData, PingPostResponse } from './apiConfig';
 import { buildPingPayload, buildPostPayload } from './payloadBuilders';
-import { calculateIncidentDate } from './timingMapper';
+import { mapTimingToWebhook } from './timingMapper';
 
 export const sendPingPostWebhook = async (
   formData: FormData,
@@ -10,12 +10,12 @@ export const sendPingPostWebhook = async (
   try {
     console.log('Starting ping request with form data:', formData);
     
-    const formDataWithDate = {
+    const formDataWithTiming = {
       ...formData,
-      accidentDate: calculateIncidentDate(formData.timing || '')
+      timing: mapTimingToWebhook(formData.timing || '')
     };
     
-    const pingPayload = buildPingPayload(formDataWithDate);
+    const pingPayload = buildPingPayload(formDataWithTiming);
     console.log('Sending ping request with payload:', JSON.stringify(pingPayload, null, 2));
 
     const pingResponse = await fetch(API_URL, {
@@ -35,7 +35,7 @@ export const sendPingPostWebhook = async (
     }
 
     const postPayload = buildPostPayload(
-      formDataWithDate,
+      formDataWithTiming,
       pingData.leadId,
       pingData.bidId,
       trustedFormCertUrl,
