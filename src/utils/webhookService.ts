@@ -1,7 +1,6 @@
 import { API_URL, FormData, PingPostResponse } from './apiConfig';
 import { buildPingPayload, buildPostPayload } from './payloadBuilders';
 import { mapTimingToWebhook } from './timingMapper';
-import { getUserIP } from './ipUtils';
 
 export const sendPingPostWebhook = async (
   formData: FormData,
@@ -11,11 +10,9 @@ export const sendPingPostWebhook = async (
   try {
     console.log('Starting ping request with form data:', formData);
     
-    const userIP = await getUserIP();
     const formDataWithTiming = {
       ...formData,
-      timing: mapTimingToWebhook(formData.timing || ''),
-      ip: userIP
+      timing: mapTimingToWebhook(formData.timing || '')
     };
     
     const pingPayload = buildPingPayload(formDataWithTiming);
