@@ -38,9 +38,13 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
     }
   };
 
+  const isValidPhoneNumber = (phone: string) => {
+    const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+    return phoneRegex.test(phone);
+  };
+
   const handleSubmit = () => {
-    const digitsOnly = phoneNumber.replace(/\D/g, "");
-    if (digitsOnly.length !== 10) {
+    if (!isValidPhoneNumber(phoneNumber)) {
       toast({
         title: "Invalid Phone Number",
         description: "Please enter a valid 10-digit US phone number",
@@ -48,7 +52,7 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
       });
       return;
     }
-    onSubmit(phoneNumber);
+    onSubmit(`+1${phoneNumber.replace(/-/g, '')}`);
   };
 
   return (
@@ -65,17 +69,20 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
       </div>
 
       <div className="max-w-2xl mx-auto space-y-4">
-        <Input
-          value={phoneNumber}
-          onChange={handleChange}
-          placeholder="000-000-0000"
-          type="tel"
-          className="bg-white text-gray-900 placeholder:text-gray-500"
-        />
+        <div className="relative">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">+1</span>
+          <Input
+            value={phoneNumber}
+            onChange={handleChange}
+            placeholder="000-000-0000"
+            type="tel"
+            className="bg-white text-gray-900 placeholder:text-gray-500 pl-8"
+          />
+        </div>
         <Button
           onClick={handleSubmit}
           className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
-          disabled={phoneNumber.replace(/\D/g, "").length !== 10}
+          disabled={!isValidPhoneNumber(phoneNumber)}
         >
           Submit
         </Button>
