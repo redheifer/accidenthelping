@@ -11,6 +11,8 @@ import PhoneNumberForm from "@/components/PhoneNumberForm";
 import FormComplete from "@/components/FormComplete";
 import AttorneyFormComplete from "@/components/AttorneyFormComplete";
 import FaultFormComplete from "@/components/FaultFormComplete";
+import { Button } from "@/components/ui/button";
+import { FileText, Shield } from "lucide-react";
 
 const Index = () => {
   const {
@@ -143,6 +145,16 @@ const Footer = () => (
         Additionally, This site is NOT endorsed by YouTube, Google or Facebook in any way. 
         FACEBOOK is a trademark of FACEBOOK, Inc. YOUTUBE is a trademark of GOOGLE Inc.
       </p>
+      <div className="flex justify-center gap-4 mt-4">
+        <Button variant="outline" size="sm">
+          <FileText className="mr-2" />
+          Terms of Service
+        </Button>
+        <Button variant="outline" size="sm">
+          <Shield className="mr-2" />
+          Privacy Policy
+        </Button>
+      </div>
     </div>
   </div>
 );
