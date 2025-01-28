@@ -3,8 +3,8 @@ export const mapTimingToWebhook = (timing: string): string => {
     "Within 1 Week": "Within the last 10 days",
     "Within 1-3 months": "Within the last 6 months",
     "Within 4-6 months": "1-6 months",
-    "Within 1 Year": "Within the last 1 year",
-    "Within 2 Years": "Within the last 2 years",
+    "Within 1 Year": "6-12 months",
+    "Within 2 Years": "1-2 years",
     "Longer than 2 Years": "More than 2 years ago"
   };
 
