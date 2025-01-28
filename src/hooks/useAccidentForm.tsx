@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import type { FormStep } from "@/types/form";
+import { sendPingPostWebhook } from "@/utils/webhookService";
 
 export const useAccidentForm = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -80,12 +81,36 @@ export const useAccidentForm = () => {
     setStep(9);
   };
 
-  const handlePhoneSubmit = (phoneNumber: string) => {
+  const handlePhoneSubmit = async (phoneNumber: string) => {
     setStep(10);
+    
+    const formData = {
+      state: "California", // Default state
+      zipcode: "90210", // You might want to collect this earlier in the form
+      hasAttorney,
+      atFault: isAtFault,
+      otherPartyInsured: true, // You might want to collect this earlier in the form
+      injuryType: selectedType,
+      accidentDate: new Date().toISOString(), // You might want to collect this earlier in the form
+      firstName: "John", // You might want to collect this earlier in the form
+      lastName: "Doe", // You might want to collect this earlier in the form
+      phone: phoneNumber,
+      email: "test@example.com" // You might want to collect this earlier in the form
+    };
+
+    const tcpaLanguage = "I agree to receive marketing messages."; // Customize this
+    const trustedFormCertUrl = "https://cert.trustedform.com/example"; // You might want to generate this
+
+    const result = await sendPingPostWebhook(
+      formData,
+      trustedFormCertUrl,
+      tcpaLanguage
+    );
+
     setIsComplete(true);
     toast({
-      title: "Submission Complete",
-      description: "Thank you! We'll be in touch shortly with your compensation estimate.",
+      title: result.success ? "Submission Complete" : "Submission Error",
+      description: result.message || "Thank you! We'll be in touch shortly with your compensation estimate.",
     });
   };
 
