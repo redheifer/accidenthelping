@@ -16,9 +16,8 @@ const CompensationDisplay = ({ min, max, isLoading = false }: CompensationDispla
       setShowAmount(false);
       setProgress(0);
       
-      // Animate progress from 0 to 100 over 0.9 seconds
       const startTime = Date.now();
-      const duration = 900; // 0.9 seconds
+      const duration = 900;
 
       const updateProgress = () => {
         const elapsed = Date.now() - startTime;
@@ -41,13 +40,13 @@ const CompensationDisplay = ({ min, max, isLoading = false }: CompensationDispla
   }, [isLoading, min, max]);
 
   return (
-    <div className="bg-[#1a1c2e] rounded-lg p-6 mb-8 max-w-xs mx-auto">
+    <div className="bg-[#1a1c2e] rounded-lg p-4 min-w-[280px]">
       <div className="text-center">
         <div className="text-sm text-white/80 mb-2">
           {isLoading ? "Calculating compensation..." : "Compensation amounts:"}
         </div>
         {!showAmount ? (
-          <div className="h-10 flex items-center justify-center">
+          <div className="h-8 flex items-center justify-center">
             <Progress 
               value={progress} 
               className="w-3/4 mx-auto h-2 bg-gray-700" 
@@ -55,7 +54,7 @@ const CompensationDisplay = ({ min, max, isLoading = false }: CompensationDispla
             />
           </div>
         ) : (
-          <div className="text-2xl font-bold text-white bg-green-600 rounded-md py-2 animate-fade-in">
+          <div className="text-xl font-bold text-white bg-green-600 rounded-md py-1.5 animate-fade-in">
             ${min.toLocaleString()} - ${max.toLocaleString()}
           </div>
         )}

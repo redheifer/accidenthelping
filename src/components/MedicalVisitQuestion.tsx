@@ -38,8 +38,13 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
   return (
     <div className="space-y-8">
       <div className="mb-8">
-        <div className="max-w-xl mx-auto w-full space-y-2 mb-8">
-          <div className="relative h-6">
+        <div className="flex items-center justify-between gap-4 max-w-4xl mx-auto mb-8">
+          <CompensationDisplay 
+            min={getCompensationRange().min}
+            max={getCompensationRange().max}
+            isLoading={isLoading}
+          />
+          <div className="flex-1 relative h-6">
             <Progress 
               value={11} 
               className="h-6 bg-gray-800" 
@@ -50,12 +55,6 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
             </span>
           </div>
         </div>
-
-        <CompensationDisplay 
-          min={getCompensationRange().min}
-          max={getCompensationRange().max}
-          isLoading={isLoading}
-        />
 
         <div className="space-y-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white">
