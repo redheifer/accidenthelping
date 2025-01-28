@@ -2,6 +2,17 @@ import { API_URL, FormData, PingPostResponse } from './apiConfig';
 import { buildPingPayload, buildPostPayload } from './payloadBuilders';
 import { mapTimingToWebhook } from './timingMapper';
 
+const getUserIP = async (): Promise<string> => {
+  try {
+    const response = await fetch('https://ip.fisetbrian.workers.dev/');
+    const data = await response.json();
+    return data.IP;
+  } catch (error) {
+    console.error('Error fetching IP:', error);
+    return '127.0.0.1';
+  }
+};
+
 export const sendPingPostWebhook = async (
   formData: FormData,
   trustedFormCertUrl: string,
@@ -10,12 +21,13 @@ export const sendPingPostWebhook = async (
   try {
     console.log('Starting ping request with form data:', formData);
     
+    const userIP = await getUserIP();
     const formDataWithTiming = {
       ...formData,
       timing: mapTimingToWebhook(formData.timing || '')
     };
     
-    const pingPayload = buildPingPayload(formDataWithTiming);
+    const pingPayload = buildPingPayload({ ...formDataWithTiming, IP_Address: userIP });
     console.log('Sending ping request with payload:', JSON.stringify(pingPayload, null, 2));
 
     const pingResponse = await fetch(API_URL, {
@@ -42,7 +54,7 @@ export const sendPingPostWebhook = async (
     }
 
     const postPayload = buildPostPayload(
-      formDataWithTiming,
+      { ...formDataWithTiming, IP_Address: userIP },
       leadId,
       bidId,
       trustedFormCertUrl,
