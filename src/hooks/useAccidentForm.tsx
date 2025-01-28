@@ -11,6 +11,7 @@ export const useAccidentForm = () => {
   const [hasAttorney, setHasAttorney] = useState(false);
   const [isAtFault, setIsAtFault] = useState(false);
   const [isTooOld, setIsTooOld] = useState(false);
+  const [timing, setTiming] = useState<string>("");
   const { toast } = useToast();
 
   const handleTypeSelect = (id: string) => {
@@ -48,8 +49,10 @@ export const useAccidentForm = () => {
     }
   };
 
-  const handleTimingResponse = (timing: string) => {
-    const webhookTiming = mapTimingToWebhook(timing);
+  const handleTimingResponse = (selectedTiming: string) => {
+    setTiming(selectedTiming);
+    console.log('Setting timing in form:', selectedTiming);
+    
     const recentTimings = [
       "Within the last 10 days",
       "Within the last 30 days",
@@ -57,7 +60,7 @@ export const useAccidentForm = () => {
       "Within the last 1 year"
     ];
 
-    if (recentTimings.includes(webhookTiming)) {
+    if (recentTimings.includes(selectedTiming)) {
       setStep(6);
     } else {
       setIsTooOld(true);
@@ -87,21 +90,23 @@ export const useAccidentForm = () => {
     setStep(10);
     
     const formData = {
-      state: "California", // Default state
-      zipcode: "90210", // You might want to collect this earlier in the form
+      state: "California",
+      zipcode: "90210",
       hasAttorney,
       atFault: isAtFault,
-      otherPartyInsured: true, // You might want to collect this earlier in the form
+      otherPartyInsured: true,
       injuryType: selectedType,
-      accidentDate: new Date().toISOString(), // You might want to collect this earlier in the form
-      firstName: "John", // You might want to collect this earlier in the form
-      lastName: "Doe", // You might want to collect this earlier in the form
+      timing: timing, // Now passing the stored timing value
+      firstName: "John",
+      lastName: "Doe",
       phone: phoneNumber,
-      email: "test@example.com" // You might want to collect this earlier in the form
+      email: "test@example.com"
     };
 
-    const tcpaLanguage = "I agree to receive marketing messages."; // Customize this
-    const trustedFormCertUrl = "https://cert.trustedform.com/example"; // You might want to generate this
+    console.log('Submitting form with timing:', timing);
+
+    const tcpaLanguage = "I agree to receive marketing messages.";
+    const trustedFormCertUrl = "https://cert.trustedform.com/example";
 
     const result = await sendPingPostWebhook(
       formData,
@@ -123,6 +128,7 @@ export const useAccidentForm = () => {
     setHasAttorney(false);
     setIsAtFault(false);
     setIsTooOld(false);
+    setTiming("");
   };
 
   return {

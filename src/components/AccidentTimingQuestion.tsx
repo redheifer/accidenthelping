@@ -2,6 +2,7 @@ import { Button } from "./ui/button";
 import ProgressIndicator from "./shared/ProgressIndicator";
 import CompensationDisplay from "./shared/CompensationDisplay";
 import QuestionHeader from "./shared/QuestionHeader";
+import { mapTimingToWebhook } from "@/utils/timingMapper";
 
 interface AccidentTimingQuestionProps {
   onSelect: (timing: string) => void;
@@ -17,6 +18,13 @@ const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQ
     "Within 2 Years",
     "Longer than 2 Years"
   ];
+
+  const handleTimingSelect = (timing: string) => {
+    const mappedTiming = mapTimingToWebhook(timing);
+    console.log('Selected timing:', timing);
+    console.log('Mapped timing for API:', mappedTiming);
+    onSelect(mappedTiming);
+  };
 
   return (
     <div className="space-y-6">
@@ -35,7 +43,7 @@ const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQ
         {timingOptions.map((timing) => (
           <Button
             key={timing}
-            onClick={() => onSelect(timing)}
+            onClick={() => handleTimingSelect(timing)}
             className="w-full py-6 text-lg bg-[#1a1c2e] hover:bg-primary hover:text-black text-white transition-colors"
           >
             {timing}
