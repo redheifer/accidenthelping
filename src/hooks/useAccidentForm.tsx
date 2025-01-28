@@ -13,18 +13,10 @@ export const useAccidentForm = () => {
   const handleTypeSelect = (id: string) => {
     setSelectedType(id);
     setStep(2);
-    toast({
-      title: "Accident type selected",
-      description: "Please answer the following question about medical visits.",
-    });
   };
 
   const handleMedicalVisit = (hadMedicalVisit: boolean) => {
     setStep(3);
-    toast({
-      title: "Medical visit information recorded",
-      description: "Please let us know about your legal representation.",
-    });
   };
 
   const handleAttorneyResponse = (hasAttorney: boolean) => {
@@ -37,10 +29,6 @@ export const useAccidentForm = () => {
       });
     } else {
       setStep(4);
-      toast({
-        title: "Attorney information recorded",
-        description: "Please answer the following question about fault.",
-      });
     }
   };
 
@@ -54,10 +42,6 @@ export const useAccidentForm = () => {
       });
     } else {
       setStep(5);
-      toast({
-        title: "Fault information recorded",
-        description: "Please tell us when the accident occurred.",
-      });
     }
   };
 
@@ -71,10 +55,6 @@ export const useAccidentForm = () => {
 
     if (recentTimings.includes(timing)) {
       setStep(6);
-      toast({
-        title: "Timing information recorded",
-        description: "Please describe your incident to help us evaluate your case.",
-      });
     } else {
       setIsComplete(true);
       toast({
@@ -87,27 +67,15 @@ export const useAccidentForm = () => {
   const handleDescriptionSubmit = (description: string) => {
     if (description.length >= 20) {
       setStep(7);
-      toast({
-        title: "Description recorded",
-        description: "Please provide your name to continue.",
-      });
     }
   };
 
   const handleNameSubmit = (firstName: string, lastName: string) => {
     setStep(8);
-    toast({
-      title: "Name recorded",
-      description: "Please provide your email address to receive your compensation estimate.",
-    });
   };
 
   const handleEmailSubmit = (email: string) => {
     setStep(9);
-    toast({
-      title: "Email recorded",
-      description: "Please provide your phone number to complete your submission.",
-    });
   };
 
   const handlePhoneSubmit = (phoneNumber: string) => {
@@ -125,10 +93,6 @@ export const useAccidentForm = () => {
     setIsComplete(false);
     setHasAttorney(false);
     setIsAtFault(false);
-    toast({
-      title: "Form Reset",
-      description: "You can start over with your claim evaluation.",
-    });
   };
 
   return {
