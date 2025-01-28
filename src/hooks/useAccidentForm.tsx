@@ -57,7 +57,8 @@ export const useAccidentForm = () => {
       "Within the last 10 days",
       "Within the last 30 days",
       "Within the last 6 months",
-      "Within the last 1 year"
+      "Within the last 1 year",
+      "Within the last 2 years" // Added this timing to allow cases within 2 years
     ];
 
     if (recentTimings.includes(selectedTiming)) {
@@ -96,7 +97,7 @@ export const useAccidentForm = () => {
       atFault: isAtFault,
       otherPartyInsured: true,
       injuryType: selectedType,
-      timing: timing, // Now passing the stored timing value
+      timing: timing,
       firstName: "John",
       lastName: "Doe",
       phone: phoneNumber,
