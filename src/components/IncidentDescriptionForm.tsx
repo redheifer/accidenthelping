@@ -81,7 +81,7 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
 
         <Button
           onClick={handleNext}
-          className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 text-white"
+          className="w-full py-3 md:py-6 text-base md:text-lg bg-blue-600 hover:bg-blue-700 text-white"
           disabled={description.length < 20}
         >
           Next

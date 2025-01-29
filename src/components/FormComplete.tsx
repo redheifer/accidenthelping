@@ -16,7 +16,7 @@ const FormComplete = ({ onRestart, compensationRange }: FormCompleteProps) => {
       <PendingNotification />
       <Button
         onClick={onRestart}
-        className="w-full py-4 md:py-6 text-base md:text-lg bg-blue-600 hover:bg-blue-700 text-white"
+        className="w-full py-3 md:py-6 text-base md:text-lg bg-blue-600 hover:bg-blue-700 text-white"
         size="lg"
       >
         Start New Evaluation
