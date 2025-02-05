@@ -8,10 +8,10 @@ const AttorneyFormComplete = ({ onRestart }: AttorneyFormCompleteProps) => {
   return (
     <div className="space-y-8">
       <div className="space-y-4 bg-card/50 p-8 rounded-lg text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-white">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           We Cannot Proceed with Your Case
         </h2>
-        <p className="text-lg text-white/80 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Since you are already represented by an attorney, we cannot assist with your case at this time. 
           Please consult with your current legal representation for guidance.
         </p>
