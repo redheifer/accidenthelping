@@ -74,7 +74,7 @@ const MVAFlorida = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#090909] py-8 md:py-12">
+    <main className="min-h-screen bg-background py-8 md:py-12">
       <div className="container max-w-6xl mx-auto px-4 space-y-8 md:space-y-12">
         {renderStep()}
       </div>

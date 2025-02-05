@@ -1,12 +1,4 @@
-import {
-  Car,
-  Bike,
-  Truck,
-  HardHat,
-  Stethoscope,
-  PersonStanding,
-  AlertCircle,
-} from "lucide-react";
+import { Car } from "lucide-react";
 import AccidentTypeCard from "./AccidentTypeCard";
 
 interface AccidentTypeSelectionProps {
@@ -17,13 +9,6 @@ interface AccidentTypeSelectionProps {
 const AccidentTypeSelection = ({ onSelect, selectedType }: AccidentTypeSelectionProps) => {
   const accidentTypes = [
     { id: "auto", title: "Automobile Accident", icon: <Car className="w-12 h-12" /> },
-    { id: "pedestrian", title: "Pedestrian or Bicycle Accident", icon: <Bike className="w-12 h-12" /> },
-    { id: "truck", title: "Truck Accident", icon: <Truck className="w-12 h-12" /> },
-    { id: "motorcycle", title: "Motorcycle Accident", icon: <Bike className="w-12 h-12" /> },
-    { id: "work", title: "Accident or Injury at Work", icon: <HardHat className="w-12 h-12" /> },
-    { id: "medical", title: "Medical Negligence", icon: <Stethoscope className="w-12 h-12" /> },
-    { id: "fall", title: "Fall or Slip", icon: <PersonStanding className="w-12 h-12" /> },
-    { id: "other", title: "Other Injury or Accident", icon: <AlertCircle className="w-12 h-12" /> },
   ];
 
   return (
@@ -35,17 +20,17 @@ const AccidentTypeSelection = ({ onSelect, selectedType }: AccidentTypeSelection
             alt="LegalUplift Logo" 
             className="w-12 h-12"
           />
-          <h1 className="text-4xl md:text-5xl font-bold text-white">
-            LegalUplift Compensation Calculator
+          <h1 className="text-4xl md:text-5xl font-bold">
+            Florida Car Accident Calculator
           </h1>
         </div>
-        <p className="text-lg text-white/80 max-w-2xl mx-auto">
-          The type of accident you were in can get you major compensation. 
-          Tap below to see what yours is worth.
+        <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
+          Get an instant estimate of your car accident compensation value. 
+          Tap below to start your free evaluation.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div className="max-w-md mx-auto mt-8">
         {accidentTypes.map((type) => (
           <AccidentTypeCard
             key={type.id}
