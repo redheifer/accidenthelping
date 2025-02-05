@@ -18,10 +18,10 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
         </div>
 
         <div className="space-y-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
             Are you currently represented by an attorney?
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-white/80">
             Having legal representation can change your options. Tell us if you already have a lawyer on your side.
           </p>
         </div>

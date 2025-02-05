@@ -13,19 +13,17 @@ const AccidentTypeCard = ({ icon, title, onClick, selected, className }: Acciden
     <button
       onClick={onClick}
       className={cn(
-        "w-full h-full p-6 card-gradient rounded-2xl cursor-pointer group",
+        "w-full h-full p-6 card-gradient rounded-2xl glow cursor-pointer group",
         "flex flex-col items-center justify-center gap-4 min-h-[200px]",
-        "border border-gray-200 hover:border-primary/50",
-        "shadow-lg hover:shadow-xl transition-all duration-300",
-        "hover:-translate-y-1",
-        selected && "border-primary border-2 shadow-xl shadow-primary/10",
+        "border border-white/10 hover:border-primary/50",
+        selected && "border-primary border-2",
         className
       )}
     >
-      <div className="text-primary text-4xl group-hover:scale-110 transition-all duration-300">
+      <div className="text-white text-4xl group-hover:scale-110 transition-all duration-300 logo-bounce">
         {icon}
       </div>
-      <h3 className="text-lg font-medium text-primary text-center">{title}</h3>
+      <h3 className="text-lg font-medium text-white text-center">{title}</h3>
     </button>
   );
 };

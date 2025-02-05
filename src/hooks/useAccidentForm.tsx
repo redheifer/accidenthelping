@@ -12,67 +12,21 @@ export const useAccidentForm = () => {
   const [isAtFault, setIsAtFault] = useState(false);
   const [isTooOld, setIsTooOld] = useState(false);
   const [timing, setTiming] = useState<string>("");
-  const [description, setDescription] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const { toast } = useToast();
 
-  const sendStepData = async (stepData: any) => {
-    try {
-      const formData = {
-        state: "California",
-        zipcode: "90210",
-        hasAttorney: hasAttorney,
-        atFault: isAtFault,
-        otherPartyInsured: true,
-        injuryType: selectedType,
-        timing: timing,
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        description: description,
-        ...stepData
-      };
-
-      console.log('Sending form data:', formData);
-
-      const tcpaLanguage = "I agree to receive marketing messages.";
-      const trustedFormCertUrl = "https://cert.trustedform.com/example";
-
-      const result = await sendPingPostWebhook(
-        formData,
-        trustedFormCertUrl,
-        tcpaLanguage
-      );
-
-      if (!result.success) {
-        console.error('API Error:', result.message);
-      }
-    } catch (error) {
-      console.error('Error sending step data:', error);
-    }
-  };
-
-  const handleTypeSelect = async (id: string) => {
+  const handleTypeSelect = (id: string) => {
     setSelectedType(id);
-    await sendStepData({ injuryType: id });
     setStep(2);
   };
 
-  const handleMedicalVisit = async (hadMedicalVisit: boolean) => {
-    await sendStepData({ hadMedicalVisit });
+  const handleMedicalVisit = (hadMedicalVisit: boolean) => {
     setStep(3);
   };
 
-  const handleAttorneyResponse = async (hasAttorney: boolean) => {
+  const handleAttorneyResponse = (hasAttorney: boolean) => {
     setHasAttorney(hasAttorney);
-    await sendStepData({ hasAttorney });
-    
+    setIsComplete(hasAttorney);
     if (hasAttorney) {
-      setIsComplete(true);
       toast({
         title: "Form Complete",
         description: "Since you already have an attorney, we cannot proceed with your case.",
@@ -82,11 +36,9 @@ export const useAccidentForm = () => {
     }
   };
 
-  const handleFaultResponse = async (atFault: boolean) => {
-    setIsAtFault(atFault);
-    await sendStepData({ atFault });
-    
+  const handleFaultResponse = (atFault: boolean) => {
     if (atFault) {
+      setIsAtFault(true);
       setIsComplete(true);
       toast({
         title: "We're Sorry",
@@ -97,16 +49,16 @@ export const useAccidentForm = () => {
     }
   };
 
-  const handleTimingResponse = async (selectedTiming: string) => {
+  const handleTimingResponse = (selectedTiming: string) => {
     setTiming(selectedTiming);
-    await sendStepData({ timing: selectedTiming });
+    console.log('Setting timing in form:', selectedTiming);
     
     const recentTimings = [
       "Within the last 10 days",
       "Within the last 30 days",
       "Within the last 6 months",
       "Within the last 1 year",
-      "Within the last 2 years"
+      "Within the last 2 years" // Added this timing to allow cases within 2 years
     ];
 
     if (recentTimings.includes(selectedTiming)) {
@@ -121,36 +73,52 @@ export const useAccidentForm = () => {
     }
   };
 
-  const handleDescriptionSubmit = async (descriptionText: string) => {
-    setDescription(descriptionText);
-    await sendStepData({ description: descriptionText });
-    if (descriptionText.length >= 20) {
+  const handleDescriptionSubmit = (description: string) => {
+    if (description.length >= 20) {
       setStep(7);
     }
   };
 
-  const handleNameSubmit = async (first: string, last: string) => {
-    setFirstName(first);
-    setLastName(last);
-    await sendStepData({ firstName: first, lastName: last });
+  const handleNameSubmit = (firstName: string, lastName: string) => {
     setStep(8);
   };
 
-  const handleEmailSubmit = async (emailAddress: string) => {
-    setEmail(emailAddress);
-    await sendStepData({ email: emailAddress });
+  const handleEmailSubmit = (email: string) => {
     setStep(9);
   };
 
   const handlePhoneSubmit = async (phoneNumber: string) => {
-    setPhone(phoneNumber);
-    await sendStepData({ phone: phoneNumber });
     setStep(10);
-    setIsComplete(true);
     
+    const formData = {
+      state: "California",
+      zipcode: "90210",
+      hasAttorney,
+      atFault: isAtFault,
+      otherPartyInsured: true,
+      injuryType: selectedType,
+      timing: timing,
+      firstName: "John",
+      lastName: "Doe",
+      phone: phoneNumber,
+      email: "test@example.com"
+    };
+
+    console.log('Submitting form with timing:', timing);
+
+    const tcpaLanguage = "I agree to receive marketing messages.";
+    const trustedFormCertUrl = "https://cert.trustedform.com/example";
+
+    const result = await sendPingPostWebhook(
+      formData,
+      trustedFormCertUrl,
+      tcpaLanguage
+    );
+
+    setIsComplete(true);
     toast({
-      title: "Submission Complete",
-      description: "Thank you! We'll be in touch shortly with your compensation estimate.",
+      title: result.success ? "Submission Complete" : "Submission Error",
+      description: result.message || "Thank you! We'll be in touch shortly with your compensation estimate.",
     });
   };
 
@@ -162,11 +130,6 @@ export const useAccidentForm = () => {
     setIsAtFault(false);
     setIsTooOld(false);
     setTiming("");
-    setDescription("");
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPhone("");
   };
 
   return {
