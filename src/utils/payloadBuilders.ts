@@ -1,3 +1,4 @@
+
 import { FormData } from './apiConfig';
 import { getStateAbbreviation } from './stateAbbreviations';
 import { API_KEY } from './apiConfig';
@@ -20,6 +21,7 @@ export const buildPingPayload = (formData: FormData) => {
       Primary_Injury: formData.injuryType,
       Incident_Date: formData.timing,
       Skip_Dupe_Check: "1",
+      Test_Lead: "1",
       Format: "JSON"
     }
   };
@@ -55,6 +57,7 @@ export const buildPostPayload = (
       Primary_Injury: formData.injuryType,
       Incident_Date: formData.timing,
       Skip_Dupe_Check: "1",
+      Test_Lead: "1",
       Lead_ID: leadId,
       Match_With_Bid_ID: bidId,
       TCPA_Consent: "Yes",
