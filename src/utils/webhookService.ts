@@ -24,7 +24,7 @@ export const sendPingPostWebhook = async (
     console.log('Starting ping request with form data:', formData);
     
     const userIP = await getUserIP();
-    console.log('Using IP address:', userIP);
+    console.log('Using IP address:', userIP); 
     
     const formDataWithTiming = {
       ...formData,
@@ -52,16 +52,10 @@ export const sendPingPostWebhook = async (
     }
 
     const leadId = pingData.response.lead_id;
-    const bidId = pingData.response.bids?.bid?.[0]?.bid_id;
-
-    if (!leadId || !bidId) {
-      throw new Error('Missing lead_id or bid_id in ping response');
-    }
 
     const postPayload = buildPostPayload(
       { ...formDataWithTiming },
       leadId,
-      bidId,
       trustedFormCertUrl,
       tcpaLanguage
     );
@@ -85,7 +79,6 @@ export const sendPingPostWebhook = async (
     return {
       success: true,
       leadId: leadId,
-      bidId: bidId,
       message: 'Successfully submitted form data'
     };
 
