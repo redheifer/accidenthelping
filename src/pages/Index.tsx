@@ -1,3 +1,4 @@
+
 import { useAccidentForm } from "@/hooks/useAccidentForm";
 import AccidentTypeSelection from "@/components/AccidentTypeSelection";
 import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
@@ -14,8 +15,10 @@ import FaultFormComplete from "@/components/FaultFormComplete";
 import TimingFormComplete from "@/components/TimingFormComplete";
 import { Button } from "@/components/ui/button";
 import { FileText, Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
   const {
     selectedType,
     step,
@@ -144,34 +147,42 @@ const Index = () => {
   );
 };
 
-const Footer = () => (
-  <div className="mt-16 pb-8 text-center space-y-4">
-    <img 
-      src="/lovable-uploads/a5188531-fe57-4015-a550-2914ae2b0547.png" 
-      alt="LegalUplift Logo" 
-      className="w-12 h-12 mx-auto"
-    />
-    <div className="space-y-2">
-      <h3 className="text-lg font-semibold text-white">
-        LegalUplift Compensation for Accident Calculator
-      </h3>
-      <p className="text-sm text-gray-400 max-w-3xl mx-auto">
-        This site is not a part of the YouTube, Google or Facebook website; Google Inc or Facebook Inc. 
-        Additionally, This site is NOT endorsed by YouTube, Google or Facebook in any way. 
-        FACEBOOK is a trademark of FACEBOOK, Inc. YOUTUBE is a trademark of GOOGLE Inc.
-      </p>
-      <div className="flex justify-center gap-4 mt-4">
-        <Button variant="outline" size="sm">
-          <FileText className="mr-2" />
-          Terms of Service
-        </Button>
-        <Button variant="outline" size="sm">
-          <Shield className="mr-2" />
-          Privacy Policy
-        </Button>
+const Footer = () => {
+  const navigate = useNavigate();
+  
+  return (
+    <div className="mt-16 pb-8 text-center space-y-4">
+      <img 
+        src="/lovable-uploads/a5188531-fe57-4015-a550-2914ae2b0547.png" 
+        alt="LegalUplift Logo" 
+        className="w-12 h-12 mx-auto"
+      />
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold text-white">
+          LegalUplift Compensation for Accident Calculator
+        </h3>
+        <p className="text-sm text-gray-400 max-w-3xl mx-auto">
+          This site is not a part of the YouTube, Google or Facebook website; Google Inc or Facebook Inc. 
+          Additionally, This site is NOT endorsed by YouTube, Google or Facebook in any way. 
+          FACEBOOK is a trademark of FACEBOOK, Inc. YOUTUBE is a trademark of GOOGLE Inc.
+        </p>
+        <div className="flex justify-center gap-4 mt-4">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => navigate('/terms-of-service')}
+          >
+            <FileText className="mr-2" />
+            Terms of Service
+          </Button>
+          <Button variant="outline" size="sm">
+            <Shield className="mr-2" />
+            Privacy Policy
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Index;
