@@ -1,3 +1,4 @@
+
 import { useAccidentForm } from "@/hooks/useAccidentForm";
 import AccidentTypeSelection from "@/components/AccidentTypeSelection";
 import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
@@ -107,7 +108,10 @@ const Index = () => {
 
         {step === 6 && (
           <IncidentDescriptionForm
-            onSubmit={handleDescriptionSubmit}
+            onSubmit={(description) => {
+              const zip = ""; // Get zip from the form component
+              handleDescriptionSubmit(description, zip);
+            }}
             compensationRange={compensationRange}
           />
         )}
