@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import type { FormStep } from "@/types/form";
@@ -12,6 +13,11 @@ export const useAccidentForm = () => {
   const [isAtFault, setIsAtFault] = useState(false);
   const [isTooOld, setIsTooOld] = useState(false);
   const [timing, setTiming] = useState<string>("");
+  const [userDescription, setUserDescription] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [zipCode, setZipCode] = useState("");
   const { toast } = useToast();
 
   const handleTypeSelect = (id: string) => {
@@ -58,7 +64,7 @@ export const useAccidentForm = () => {
       "Within the last 30 days",
       "Within the last 6 months",
       "Within the last 1 year",
-      "Within the last 2 years" // Added this timing to allow cases within 2 years
+      "Within the last 2 years"
     ];
 
     if (recentTimings.includes(selectedTiming)) {
@@ -73,17 +79,22 @@ export const useAccidentForm = () => {
     }
   };
 
-  const handleDescriptionSubmit = (description: string) => {
+  const handleDescriptionSubmit = (description: string, zip: string) => {
     if (description.length >= 20) {
+      setUserDescription(description);
+      setZipCode(zip);
       setStep(7);
     }
   };
 
-  const handleNameSubmit = (firstName: string, lastName: string) => {
+  const handleNameSubmit = (first: string, last: string) => {
+    setFirstName(first);
+    setLastName(last);
     setStep(8);
   };
 
-  const handleEmailSubmit = (email: string) => {
+  const handleEmailSubmit = (userEmail: string) => {
+    setEmail(userEmail);
     setStep(9);
   };
 
@@ -91,20 +102,21 @@ export const useAccidentForm = () => {
     setStep(10);
     
     const formData = {
-      state: "California",
-      zipcode: "90210",
+      state: "California", // This could be made dynamic if needed
+      zipcode: zipCode,
       hasAttorney,
       atFault: isAtFault,
-      otherPartyInsured: true,
-      injuryType: selectedType,
+      otherPartyInsured: true, // This could be made into a form question if needed
+      injuryType: selectedType || "",
       timing: timing,
-      firstName: "John",
-      lastName: "Doe",
+      firstName: firstName,
+      lastName: lastName,
       phone: phoneNumber,
-      email: "test@example.com"
+      email: email,
+      IP_Address: "127.0.0.1" // This should ideally be obtained from a service
     };
 
-    console.log('Submitting form with timing:', timing);
+    console.log('Submitting form with data:', formData);
 
     const tcpaLanguage = "I agree to receive marketing messages.";
     const trustedFormCertUrl = "https://cert.trustedform.com/example";
@@ -130,6 +142,11 @@ export const useAccidentForm = () => {
     setIsAtFault(false);
     setIsTooOld(false);
     setTiming("");
+    setUserDescription("");
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setZipCode("");
   };
 
   return {
