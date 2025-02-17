@@ -175,7 +175,11 @@ const Footer = () => {
             <FileText className="mr-2" />
             Terms of Service
           </Button>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => navigate('/privacy-policy')}
+          >
             <Shield className="mr-2" />
             Privacy Policy
           </Button>
