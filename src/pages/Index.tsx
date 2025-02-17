@@ -38,10 +38,12 @@ const Index = () => {
 
   const compensationRange = { min: 75000, max: 125000 };
 
+  const baseContainerClasses = "min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 p-6 md:p-8 lg:p-12";
+
   if (isComplete) {
     if (hasAttorney) {
       return (
-        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
+        <div className={baseContainerClasses}>
           <AttorneyFormComplete onRestart={handleRestart} />
           <Footer />
         </div>
@@ -49,7 +51,7 @@ const Index = () => {
     }
     if (isAtFault) {
       return (
-        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
+        <div className={baseContainerClasses}>
           <FaultFormComplete onRestart={handleRestart} />
           <Footer />
         </div>
@@ -57,14 +59,14 @@ const Index = () => {
     }
     if (isTooOld) {
       return (
-        <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
+        <div className={baseContainerClasses}>
           <TimingFormComplete onRestart={handleRestart} />
           <Footer />
         </div>
       );
     }
     return (
-      <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
+      <div className={baseContainerClasses}>
         <FormComplete 
           onRestart={handleRestart} 
           compensationRange={compensationRange}
@@ -75,7 +77,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen p-6 md:p-8 lg:p-12 bg-background">
+    <div className={baseContainerClasses}>
       <div className="max-w-7xl mx-auto space-y-8">
         {step === 1 && (
           <AccidentTypeSelection onSelect={handleTypeSelect} selectedType={selectedType} />
