@@ -8,7 +8,7 @@ export const buildPingPayload = (formData: FormData) => {
     Request: {
       Mode: "ping",
       Key: API_KEY,
-      API_Action: "pingPostConsent",
+      API_Action: "pingPostLead",
       TYPE: "37",
       IP_Address: formData.IP_Address,
       SRC: "Accident_Helping",
@@ -30,7 +30,6 @@ export const buildPingPayload = (formData: FormData) => {
 export const buildPostPayload = (
   formData: FormData,
   leadId: string,
-  bidId: string,
   trustedFormCertUrl: string,
   tcpaLanguage: string
 ) => {
@@ -38,7 +37,7 @@ export const buildPostPayload = (
     Request: {
       Mode: "post",
       Key: API_KEY,
-      API_Action: "pingPostConsent",
+      API_Action: "pingPostLead",
       TYPE: "37",
       IP_Address: formData.IP_Address,
       SRC: "Accident_Helping",
@@ -59,7 +58,6 @@ export const buildPostPayload = (
       Skip_Dupe_Check: "1",
       Test_Lead: "1",
       Lead_ID: leadId,
-      Match_With_Bid_ID: bidId,
       TCPA_Consent: "Yes",
       TCPA_Language: tcpaLanguage,
       Format: "JSON"
