@@ -1,4 +1,3 @@
-
 import { useAccidentForm } from "@/hooks/useAccidentForm";
 import AccidentTypeSelection from "@/components/AccidentTypeSelection";
 import MedicalVisitQuestion from "@/components/MedicalVisitQuestion";
@@ -38,7 +37,7 @@ const Index = () => {
 
   const compensationRange = { min: 75000, max: 125000 };
 
-  const baseContainerClasses = "min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 p-6 md:p-8 lg:p-12";
+  const baseContainerClasses = "min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-950 p-6 md:p-8 lg:p-12";
 
   if (isComplete) {
     if (hasAttorney) {
