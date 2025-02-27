@@ -1,3 +1,4 @@
+
 import { Frown, Smile } from "lucide-react";
 import { useState, useEffect } from "react";
 import AccidentTypeCard from "./AccidentTypeCard";
@@ -40,12 +41,14 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <div className="flex items-center justify-between gap-4 max-w-4xl mx-auto mb-8">
-          <CompensationDisplay 
-            min={getCompensationRange().min}
-            max={getCompensationRange().max}
-            isLoading={isLoading}
-          />
+        <div className="flex flex-col gap-3 max-w-4xl mx-auto mb-8">
+          <div className="mx-auto w-full max-w-md">
+            <CompensationDisplay 
+              min={getCompensationRange().min}
+              max={getCompensationRange().max}
+              isLoading={isLoading}
+            />
+          </div>
           <ProgressIndicator value={33} />
         </div>
 

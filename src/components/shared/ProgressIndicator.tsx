@@ -1,3 +1,4 @@
+
 import { Progress } from "../ui/progress";
 
 interface ProgressIndicatorProps {
@@ -7,7 +8,7 @@ interface ProgressIndicatorProps {
 
 const ProgressIndicator = ({ value }: ProgressIndicatorProps) => {
   return (
-    <div className="flex-1 relative h-6">
+    <div className="relative h-6 w-full">
       <Progress 
         value={value} 
         className="h-6 bg-gray-800" 

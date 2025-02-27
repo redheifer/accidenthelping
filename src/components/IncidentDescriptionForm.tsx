@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
@@ -48,14 +49,17 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
   return (
     <div className="space-y-6">
       <div className="mb-8">
-        <div className="flex items-center justify-between gap-4 max-w-4xl mx-auto mb-8">
-          <CompensationDisplay 
-            min={currentRange.min} 
-            max={currentRange.max}
-            isLoading={isLoading} 
-          />
+        <div className="flex flex-col gap-3 max-w-4xl mx-auto mb-8">
+          <div className="mx-auto w-full max-w-md">
+            <CompensationDisplay 
+              min={currentRange.min} 
+              max={currentRange.max}
+              isLoading={isLoading} 
+            />
+          </div>
           <ProgressIndicator value={55} />
         </div>
+        
         <QuestionHeader 
           title="Describe your incident"
           description="A brief description of your accident will help us evaluate your case more accurately. Our AI system will analyze your description to provide a more precise compensation estimate."
