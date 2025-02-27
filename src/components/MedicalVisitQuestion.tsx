@@ -1,15 +1,17 @@
 
-import { Stethoscope, XCircle } from "lucide-react";
+import { Stethoscope, XCircle, ChevronLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 import AccidentTypeCard from "./AccidentTypeCard";
 import { Progress } from "./ui/progress";
 import CompensationDisplay from "./shared/CompensationDisplay";
+import { Button } from "./ui/button";
 
 interface MedicalVisitQuestionProps {
   onSelect: (hadMedicalVisit: boolean) => void;
+  onPrevious?: () => void;
 }
 
-const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
+const MedicalVisitQuestion = ({ onSelect, onPrevious }: MedicalVisitQuestionProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState<boolean | null>(null);
 
@@ -81,6 +83,19 @@ const MedicalVisitQuestion = ({ onSelect }: MedicalVisitQuestionProps) => {
           onClick={() => handleSelect(false)}
         />
       </div>
+
+      {onPrevious && (
+        <div className="mt-6 flex justify-center">
+          <Button 
+            variant="outline" 
+            onClick={onPrevious}
+            className="flex items-center gap-2 text-white bg-transparent border-white/30 hover:bg-white/10"
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Previous
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

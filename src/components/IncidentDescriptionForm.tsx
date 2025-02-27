@@ -5,13 +5,15 @@ import { Textarea } from "./ui/textarea";
 import ProgressIndicator from "./shared/ProgressIndicator";
 import CompensationDisplay from "./shared/CompensationDisplay";
 import QuestionHeader from "./shared/QuestionHeader";
+import { ChevronLeft } from "lucide-react";
 
 interface IncidentDescriptionFormProps {
   onSubmit: (description: string) => void;
   compensationRange: { min: number; max: number };
+  onPrevious?: () => void;
 }
 
-const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescriptionFormProps) => {
+const IncidentDescriptionForm = ({ onSubmit, compensationRange, onPrevious }: IncidentDescriptionFormProps) => {
   const [description, setDescription] = useState("");
   const [currentRange, setCurrentRange] = useState(compensationRange);
   const [isLoading, setIsLoading] = useState(true);
@@ -83,13 +85,25 @@ const IncidentDescriptionForm = ({ onSubmit, compensationRange }: IncidentDescri
           </div>
         </div>
 
-        <Button
-          onClick={handleNext}
-          className="w-full py-3 md:py-6 text-base md:text-lg bg-blue-600 hover:bg-blue-700 text-white"
-          disabled={description.length < 20}
-        >
-          Next
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between">
+          {onPrevious && (
+            <Button 
+              variant="outline" 
+              onClick={onPrevious}
+              className="flex items-center justify-center gap-2 text-white bg-transparent border-white/30 hover:bg-white/10"
+            >
+              <ChevronLeft className="h-4 w-4" />
+              Previous
+            </Button>
+          )}
+          <Button
+            onClick={handleNext}
+            className="py-3 md:py-6 text-base md:text-lg bg-blue-600 hover:bg-blue-700 text-white flex-1"
+            disabled={description.length < 20}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

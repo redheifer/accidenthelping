@@ -20,6 +20,12 @@ export const useAccidentForm = () => {
   const [zipCode, setZipCode] = useState("");
   const { toast } = useToast();
 
+  const handlePrevious = () => {
+    if (step > 1) {
+      setStep((prevStep) => prevStep - 1 as FormStep);
+    }
+  };
+
   const handleTypeSelect = (id: string) => {
     setSelectedType(id);
     setStep(2);
@@ -166,5 +172,6 @@ export const useAccidentForm = () => {
     handleEmailSubmit,
     handlePhoneSubmit,
     handleRestart,
+    handlePrevious,
   };
 };

@@ -36,6 +36,7 @@ const Index = () => {
     handleEmailSubmit,
     handlePhoneSubmit,
     handleRestart,
+    handlePrevious,
   } = useAccidentForm();
 
   const compensationRange = { min: 75000, max: 125000 };
@@ -86,13 +87,17 @@ const Index = () => {
         )}
 
         {step === 2 && (
-          <MedicalVisitQuestion onSelect={handleMedicalVisit} />
+          <MedicalVisitQuestion 
+            onSelect={handleMedicalVisit} 
+            onPrevious={handlePrevious}
+          />
         )}
 
         {step === 3 && (
           <AttorneyQuestion 
             onSelect={handleAttorneyResponse}
             compensationRange={compensationRange}
+            onPrevious={handlePrevious}
           />
         )}
 
@@ -100,6 +105,7 @@ const Index = () => {
           <FaultQuestion 
             onSelect={handleFaultResponse}
             compensationRange={compensationRange}
+            onPrevious={handlePrevious}
           />
         )}
 
@@ -107,6 +113,7 @@ const Index = () => {
           <AccidentTimingQuestion
             onSelect={handleTimingResponse}
             compensationRange={compensationRange}
+            onPrevious={handlePrevious}
           />
         )}
 
@@ -117,6 +124,7 @@ const Index = () => {
               handleDescriptionSubmit(description, zip);
             }}
             compensationRange={compensationRange}
+            onPrevious={handlePrevious}
           />
         )}
 
@@ -124,6 +132,7 @@ const Index = () => {
           <NameCollectionForm
             onSubmit={handleNameSubmit}
             compensationRange={compensationRange}
+            onPrevious={handlePrevious}
           />
         )}
 
@@ -131,6 +140,7 @@ const Index = () => {
           <EmailCollectionForm
             onSubmit={handleEmailSubmit}
             compensationRange={compensationRange}
+            onPrevious={handlePrevious}
           />
         )}
 
@@ -138,6 +148,7 @@ const Index = () => {
           <PhoneNumberForm
             onSubmit={handlePhoneSubmit}
             compensationRange={compensationRange}
+            onPrevious={handlePrevious}
           />
         )}
 

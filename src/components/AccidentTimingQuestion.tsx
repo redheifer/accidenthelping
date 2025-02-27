@@ -4,13 +4,15 @@ import ProgressIndicator from "./shared/ProgressIndicator";
 import CompensationDisplay from "./shared/CompensationDisplay";
 import QuestionHeader from "./shared/QuestionHeader";
 import { mapTimingToWebhook } from "@/utils/timingMapper";
+import { ChevronLeft } from "lucide-react";
 
 interface AccidentTimingQuestionProps {
   onSelect: (timing: string) => void;
   compensationRange: { min: number; max: number };
+  onPrevious?: () => void;
 }
 
-const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQuestionProps) => {
+const AccidentTimingQuestion = ({ onSelect, compensationRange, onPrevious }: AccidentTimingQuestionProps) => {
   const timingOptions = [
     "Within 1 Week",
     "Within 1-3 months",
@@ -54,6 +56,20 @@ const AccidentTimingQuestion = ({ onSelect, compensationRange }: AccidentTimingQ
           </Button>
         ))}
       </div>
+
+      {onPrevious && (
+        <div className="mt-6 flex justify-center">
+          <Button 
+            variant="outline"
+
+            onClick={onPrevious}
+            className="flex items-center gap-2 text-white bg-transparent border-white/30 hover:bg-white/10"
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Previous
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

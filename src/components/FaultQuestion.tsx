@@ -1,17 +1,19 @@
 
-import { Frown, Smile } from "lucide-react";
+import { Frown, Smile, ChevronLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 import AccidentTypeCard from "./AccidentTypeCard";
 import ProgressIndicator from "./shared/ProgressIndicator";
 import CompensationDisplay from "./shared/CompensationDisplay";
 import QuestionHeader from "./shared/QuestionHeader";
+import { Button } from "./ui/button";
 
 interface FaultQuestionProps {
   onSelect: (atFault: boolean) => void;
   compensationRange: { min: number; max: number };
+  onPrevious?: () => void;
 }
 
-const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
+const FaultQuestion = ({ onSelect, compensationRange, onPrevious }: FaultQuestionProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState<boolean | null>(null);
 
@@ -70,6 +72,19 @@ const FaultQuestion = ({ onSelect, compensationRange }: FaultQuestionProps) => {
           onClick={() => handleSelect(false)}
         />
       </div>
+
+      {onPrevious && (
+        <div className="mt-6 flex justify-center">
+          <Button 
+            variant="outline" 
+            onClick={onPrevious}
+            className="flex items-center gap-2 text-white bg-transparent border-white/30 hover:bg-white/10"
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Previous
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

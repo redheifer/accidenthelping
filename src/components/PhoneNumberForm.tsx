@@ -6,13 +6,15 @@ import { useToast } from "@/hooks/use-toast";
 import ProgressIndicator from "./shared/ProgressIndicator";
 import CompensationDisplay from "./shared/CompensationDisplay";
 import QuestionHeader from "./shared/QuestionHeader";
+import { ChevronLeft } from "lucide-react";
 
 interface PhoneNumberFormProps {
   onSubmit: (phoneNumber: string) => void;
   compensationRange: { min: number; max: number };
+  onPrevious?: () => void;
 }
 
-const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) => {
+const PhoneNumberForm = ({ onSubmit, compensationRange, onPrevious }: PhoneNumberFormProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
@@ -83,13 +85,26 @@ const PhoneNumberForm = ({ onSubmit, compensationRange }: PhoneNumberFormProps) 
             className="bg-white text-gray-900 placeholder:text-gray-500 pl-8"
           />
         </div>
-        <Button
-          onClick={handleSubmit}
-          className="w-full py-3 md:py-6 text-base md:text-lg bg-blue-600 hover:bg-blue-700 text-white"
-          disabled={!isValidPhoneNumber(phoneNumber)}
-        >
-          Submit
-        </Button>
+        
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between">
+          {onPrevious && (
+            <Button 
+              variant="outline" 
+              onClick={onPrevious}
+              className="flex items-center justify-center gap-2 text-white bg-transparent border-white/30 hover:bg-white/10"
+            >
+              <ChevronLeft className="h-4 w-4" />
+              Previous
+            </Button>
+          )}
+          <Button
+            onClick={handleSubmit}
+            className="py-3 md:py-6 text-base md:text-lg bg-blue-600 hover:bg-blue-700 text-white flex-1"
+            disabled={!isValidPhoneNumber(phoneNumber)}
+          >
+            Submit
+          </Button>
+        </div>
       </div>
     </div>
   );

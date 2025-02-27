@@ -1,15 +1,17 @@
 
-import { Scale, ThumbsUp } from "lucide-react";
+import { Scale, ThumbsUp, ChevronLeft } from "lucide-react";
 import AccidentTypeCard from "./AccidentTypeCard";
 import ProgressIndicator from "./shared/ProgressIndicator";
 import CompensationDisplay from "./shared/CompensationDisplay";
+import { Button } from "./ui/button";
 
 interface AttorneyQuestionProps {
   onSelect: (hasAttorney: boolean) => void;
   compensationRange: { min: number; max: number };
+  onPrevious?: () => void;
 }
 
-const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps) => {
+const AttorneyQuestion = ({ onSelect, compensationRange, onPrevious }: AttorneyQuestionProps) => {
   return (
     <div className="space-y-6">
       <div className="mb-8">
@@ -43,6 +45,19 @@ const AttorneyQuestion = ({ onSelect, compensationRange }: AttorneyQuestionProps
           className="shadow-[0_0_30px_rgba(134,239,172,0.2)]"
         />
       </div>
+
+      {onPrevious && (
+        <div className="mt-6 flex justify-center">
+          <Button 
+            variant="outline" 
+            onClick={onPrevious}
+            className="flex items-center gap-2 text-white bg-transparent border-white/30 hover:bg-white/10"
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Previous
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
