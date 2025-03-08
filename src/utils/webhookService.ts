@@ -1,19 +1,7 @@
-
 import { API_URL, FormData, PingPostResponse } from './apiConfig';
 import { buildPingPayload, buildPostPayload } from './payloadBuilders';
 import { mapTimingToWebhook } from './timingMapper';
-
-const getUserIP = async (): Promise<string> => {
-  try {
-    const response = await fetch('https://ip.fisetbrian.workers.dev/');
-    const data = await response.json();
-    console.log('Fetched IP:', data.ip);
-    return data.ip;
-  } catch (error) {
-    console.error('Error fetching IP:', error);
-    return '127.0.0.1';
-  }
-};
+import { getUserIP, getUserState } from './geoLocation';
 
 export const sendPingPostWebhook = async (
   formData: FormData,
@@ -24,15 +12,22 @@ export const sendPingPostWebhook = async (
     console.log('Starting ping request with form data:', formData);
     
     const userIP = await getUserIP();
-    console.log('Using IP address:', userIP); 
+    console.log('Using IP address:', userIP);
     
-    const formDataWithTiming = {
+    let userState = formData.state;
+    if (!userState) {
+      userState = await getUserState();
+      console.log('Determined user state from IP:', userState);
+    }
+    
+    const formDataWithLocationInfo = {
       ...formData,
       timing: mapTimingToWebhook(formData.timing || ''),
-      IP_Address: userIP
+      IP_Address: userIP,
+      state: userState
     };
     
-    const pingPayload = buildPingPayload({ ...formDataWithTiming });
+    const pingPayload = buildPingPayload({ ...formDataWithLocationInfo });
     console.log('Sending ping request with payload:', JSON.stringify(pingPayload, null, 2));
 
     const pingResponse = await fetch(API_URL, {
@@ -54,7 +49,7 @@ export const sendPingPostWebhook = async (
     const leadId = pingData.response.lead_id;
 
     const postPayload = buildPostPayload(
-      { ...formDataWithTiming },
+      { ...formDataWithLocationInfo },
       leadId,
       trustedFormCertUrl,
       tcpaLanguage

@@ -1,4 +1,3 @@
-
 import { FormData } from './apiConfig';
 import { getStateAbbreviation } from './stateAbbreviations';
 import { API_KEY } from './apiConfig';
@@ -55,6 +54,7 @@ export const buildPostPayload = (
       Has_Insurance: formData.otherPartyInsured ? "Yes" : "No",
       Primary_Injury: formData.injuryType,
       Incident_Date: formData.timing,
+      Description: formData.description || "",
       Skip_Dupe_Check: "1",
       Test_Lead: "1",
       Lead_ID: leadId,

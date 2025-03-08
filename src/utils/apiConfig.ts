@@ -15,6 +15,7 @@ export interface FormData {
   email?: string;
   timing?: string;
   IP_Address?: string;
+  description?: string;
 }
 
 export interface PingPostResponse {

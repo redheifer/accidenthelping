@@ -1,9 +1,9 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import type { FormStep } from "@/types/form";
 import { sendPingPostWebhook } from "@/utils/webhookService";
 import { mapTimingToWebhook } from "@/utils/timingMapper";
+import { getUserState } from "@/utils/geoLocation";
 
 export const useAccidentForm = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -18,7 +18,24 @@ export const useAccidentForm = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const [userState, setUserState] = useState<string>("");
   const { toast } = useToast();
+
+  // Fetch the user's state based on IP when the component mounts
+  useEffect(() => {
+    const fetchUserState = async () => {
+      try {
+        const state = await getUserState();
+        setUserState(state);
+        console.log('Set user state from IP:', state);
+      } catch (error) {
+        console.error('Error setting user state:', error);
+        setUserState("California"); // Fallback
+      }
+    };
+    
+    fetchUserState();
+  }, []);
 
   const handlePrevious = () => {
     if (step > 1) {
@@ -108,7 +125,7 @@ export const useAccidentForm = () => {
     setStep(10);
     
     const formData = {
-      state: "California", // This could be made dynamic if needed
+      state: userState, // Use the dynamically determined state
       zipcode: zipCode,
       hasAttorney,
       atFault: isAtFault,
@@ -119,7 +136,8 @@ export const useAccidentForm = () => {
       lastName: lastName,
       phone: phoneNumber,
       email: email,
-      IP_Address: "127.0.0.1" // This should ideally be obtained from a service
+      description: userDescription, // Include the user's description in the form data
+      // IP_Address will be determined by the webhook service
     };
 
     console.log('Submitting form with data:', formData);
@@ -153,6 +171,7 @@ export const useAccidentForm = () => {
     setLastName("");
     setEmail("");
     setZipCode("");
+    // Don't reset userState as it's based on IP
   };
 
   return {
